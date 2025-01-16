@@ -1,3 +1,5 @@
+Personal repo for ROB 515 class
+
 # Picar-X
 
 Picar-X Python library for Raspberry Pi.
