@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from .basic import _Basic_class
 from .utils import run_command
-from smbus2 import SMBus
+#from smbus2 import SMBus
 import multiprocessing
 
 
@@ -39,7 +39,7 @@ class I2C(_Basic_class):
         """
         super().__init__(*args, **kwargs)
         self._bus = bus
-        self._smbus = SMBus(self._bus)
+        #self._smbus = SMBus(self._bus)
         if isinstance(address, list):
             connected_devices = self.scan()
             for _addr in address:
@@ -55,61 +55,65 @@ class I2C(_Basic_class):
 
     @_retry_wrapper
     def _write_byte(self, data):
-        # with I2C.i2c_lock.get_lock():
-        self._debug(f"_write_byte: [0x{data:02X}]")
-        result = self._smbus.write_byte(self.address, data)
-        return result
+        # # with I2C.i2c_lock.get_lock():
+        # self._debug(f"_write_byte: [0x{data:02X}]")
+        # result = self._smbus.write_byte(self.address, data)
+        # return result
+        pass
 
     @_retry_wrapper
     def _write_byte_data(self, reg, data):
         # with I2C.i2c_lock.get_lock():
-        self._debug(f"_write_byte_data: [0x{reg:02X}] [0x{data:02X}]")
-        return self._smbus.write_byte_data(self.address, reg, data)
+        #self._debug(f"_write_byte_data: [0x{reg:02X}] [0x{data:02X}]")
+        #return self._smbus.write_byte_data(self.address, reg, data)
+        pass 
 
     @_retry_wrapper
     def _write_word_data(self, reg, data):
         # with I2C.i2c_lock.get_lock():
-        self._debug(f"_write_word_data: [0x{reg:02X}] [0x{data:04X}]")
-        return self._smbus.write_word_data(self.address, reg, data)
+        #self._debug(f"_write_word_data: [0x{reg:02X}] [0x{data:04X}]")
+        #return self._smbus.write_word_data(self.address, reg, data)
+        pass
 
     @_retry_wrapper
     def _write_i2c_block_data(self, reg, data):
         # with I2C.i2c_lock.get_lock():
-        self._debug(
-            f"_write_i2c_block_data: [0x{reg:02X}] {[f'0x{i:02X}' for i in data]}"
-        )
-        return self._smbus.write_i2c_block_data(self.address, reg, data)
+        # self._debug(
+        #     f"_write_i2c_block_data: [0x{reg:02X}] {[f'0x{i:02X}' for i in data]}"
+        # )
+        # return self._smbus.write_i2c_block_data(self.address, reg, data)
+        pass
 
     @_retry_wrapper
     def _read_byte(self):
         # with I2C.i2c_lock.get_lock():
-        result = self._smbus.read_byte(self.address)
-        self._debug(f"_read_byte: [0x{result:02X}]")
-        return result
+        # result = self._smbus.read_byte(self.address)
+        # self._debug(f"_read_byte: [0x{result:02X}]")
+        return 0 #edited 
 
     @_retry_wrapper
     def _read_byte_data(self, reg):
         # with I2C.i2c_lock.get_lock():
-        result = self._smbus.read_byte_data(self.address, reg)
-        self._debug(f"_read_byte_data: [0x{reg:02X}] [0x{result:02X}]")
-        return result
+        # result = self._smbus.read_byte_data(self.address, reg)
+        # self._debug(f"_read_byte_data: [0x{reg:02X}] [0x{result:02X}]")
+        return 0 #edited 
 
     @_retry_wrapper
     def _read_word_data(self, reg):
         # with I2C.i2c_lock.get_lock():
-        result = self._smbus.read_word_data(self.address, reg)
-        result_list = [result & 0xFF, (result >> 8) & 0xFF]
-        self._debug(f"_read_word_data: [0x{reg:02X}] [0x{result:04X}]")
-        return result_list
+        #result = self._smbus.read_word_data(self.address, reg)
+        #result_list = [result & 0xFF, (result >> 8) & 0xFF]
+        #self._debug(f"_read_word_data: [0x{reg:02X}] [0x{result:04X}]")
+        return [0,0,0,0] #edited 
 
     @_retry_wrapper
     def _read_i2c_block_data(self, reg, num):
         # with I2C.i2c_lock.get_lock():
-        result = self._smbus.read_i2c_block_data(self.address, reg, num)
-        self._debug(
-            f"_read_i2c_block_data: [0x{reg:02X}] {[f'0x{i:02X}' for i in result]}"
-        )
-        return result
+        # result = self._smbus.read_i2c_block_data(self.address, reg, num)
+        # self._debug(
+        #     f"_read_i2c_block_data: [0x{reg:02X}] {[f'0x{i:02X}' for i in result]}"
+        # )
+        return 0 #edited
 
     @_retry_wrapper
     def is_ready(self):
@@ -152,61 +156,63 @@ class I2C(_Basic_class):
         return addresses
 
     def write(self, data):
-        """Write data to the I2C device
+        # """Write data to the I2C device
 
-        :param data: Data to write
-        :type data: int/list/bytearray
-        :raises: ValueError if write is not an int, list or bytearray
-        """
-        if isinstance(data, bytearray):
-            data_all = list(data)
-        elif isinstance(data, int):
-            if data == 0:
-                data_all = [0]
-            else:
-                data_all = []
-                while data > 0:
-                    data_all.append(data & 0xFF)
-                    data >>= 8
-        elif isinstance(data, list):
-            data_all = data
-        else:
-            raise ValueError(
-                f"write data must be int, list, or bytearray, not {type(data)}"
-            )
+        # :param data: Data to write
+        # :type data: int/list/bytearray
+        # :raises: ValueError if write is not an int, list or bytearray
+        # """
+        # if isinstance(data, bytearray):
+        #     data_all = list(data)
+        # elif isinstance(data, int):
+        #     if data == 0:
+        #         data_all = [0]
+        #     else:
+        #         data_all = []
+        #         while data > 0:
+        #             data_all.append(data & 0xFF)
+        #             data >>= 8
+        # elif isinstance(data, list):
+        #     data_all = data
+        # else:
+        #     raise ValueError(
+        #         f"write data must be int, list, or bytearray, not {type(data)}"
+        #     )
 
-        # Write data
-        if len(data_all) == 1:
-            data = data_all[0]
-            self._write_byte(data)
-        elif len(data_all) == 2:
-            reg = data_all[0]
-            data = data_all[1]
-            self._write_byte_data(reg, data)
-        elif len(data_all) == 3:
-            reg = data_all[0]
-            data = (data_all[2] << 8) + data_all[1]
-            self._write_word_data(reg, data)
-        else:
-            reg = data_all[0]
-            data = list(data_all[1:])
-            self._write_i2c_block_data(reg, data)
+        # # Write data
+        # if len(data_all) == 1:
+        #     data = data_all[0]
+        #     self._write_byte(data)
+        # elif len(data_all) == 2:
+        #     reg = data_all[0]
+        #     data = data_all[1]
+        #     self._write_byte_data(reg, data)
+        # elif len(data_all) == 3:
+        #     reg = data_all[0]
+        #     data = (data_all[2] << 8) + data_all[1]
+        #     self._write_word_data(reg, data)
+        # else:
+        #     reg = data_all[0]
+        #     data = list(data_all[1:])
+        #     self._write_i2c_block_data(reg, data)
+        pass 
 
     def read(self, length=1):
-        """Read data from I2C device
+        # """Read data from I2C device
 
-        :param length: Number of bytes to receive
-        :type length: int
-        :return: Received data
-        :rtype: list
-        """
-        if not isinstance(length, int):
-            raise ValueError(f"length must be int, not {type(length)}")
+        # :param length: Number of bytes to receive
+        # :type length: int
+        # :return: Received data
+        # :rtype: list
+        # """
+        # if not isinstance(length, int):
+        #     raise ValueError(f"length must be int, not {type(length)}")
 
-        result = []
-        for _ in range(length):
-            result.append(self._read_byte())
-        return result
+        # result = []
+        # for _ in range(length):
+        #     result.append(self._read_byte())
+        #return result 
+        return [0,0,0,0]    
 
     def mem_write(self, data, memaddr):
         """Send data to specific register address
@@ -216,37 +222,39 @@ class I2C(_Basic_class):
         :param memaddr: Register address
         :type memaddr: int
         :raise ValueError: If data is not int, list, or bytearray
-        """
-        if isinstance(data, bytearray):
-            data_all = list(data)
-        elif isinstance(data, list):
-            data_all = data
-        elif isinstance(data, int):
-            data_all = []
-            if data == 0:
-                data_all = [0]
-            else:
-                while data > 0:
-                    data_all.append(data & 0xFF)
-                    data >>= 8
-        else:
-            raise ValueError(
-                "memery write require arguement of bytearray, list, int less than 0xFF"
-            )
-        self._write_i2c_block_data(memaddr, data_all)
+        # """
+        # if isinstance(data, bytearray):
+        #     data_all = list(data)
+        # elif isinstance(data, list):
+        #     data_all = data
+        # elif isinstance(data, int):
+        #     data_all = []
+        #     if data == 0:
+        #         data_all = [0]
+        #     else:
+        #         while data > 0:
+        #             data_all.append(data & 0xFF)
+        #             data >>= 8
+        # else:
+        #     raise ValueError(
+        #         "memery write require arguement of bytearray, list, int less than 0xFF"
+        #     )
+        # self._write_i2c_block_data(memaddr, data_all)
+        pass
 
     def mem_read(self, length, memaddr):
-        """Read data from specific register address
+        # """Read data from specific register address
 
-        :param length: Number of bytes to receive
-        :type length: int
-        :param memaddr: Register address
-        :type memaddr: int
-        :return: Received bytearray data or False if error
-        :rtype: list/False
-        """
-        result = self._read_i2c_block_data(memaddr, length)
-        return result
+        # :param length: Number of bytes to receive
+        # :type length: int
+        # :param memaddr: Register address
+        # :type memaddr: int
+        # :return: Received bytearray data or False if error
+        # :rtype: list/False
+        # """
+        # result = self._read_i2c_block_data(memaddr, length)
+        #return result
+        return 0
 
     def is_avaliable(self):
         """
@@ -260,3 +268,4 @@ class I2C(_Basic_class):
 
 if __name__ == "__main__":
     i2c = I2C(address=[0x17, 0x15], debug_level='debug')
+    

@@ -33,10 +33,10 @@ class fileDB(object):
 
 		self.db = db
 		# Check if db_file is existed, otherwise create one
-		if self.db != None:	
-			self.file_check_create(db, mode, owner)
-		else:
-			raise ValueError('db: Missing file path parameter.')
+	#	if self.db != None:	
+		#	self.file_check_create(db, mode, owner)
+		#else:
+		#	raise ValueError('db: Missing file path parameter.')
 
 
 	def file_check_create(self, file_path:str, mode:str=None, owner:str=None):
@@ -74,7 +74,9 @@ class fileDB(object):
 				os.popen('sudo chown -R %s:%s %s'%(owner, owner, file_path.rsplit('/',1)[0]))		
 		except Exception as e:
 			raise(e) 
-	
+			#pass
+		
+		
 	def get(self, name, default_value=None):
 		"""
 		Get value with data's name
@@ -86,29 +88,32 @@ class fileDB(object):
 		:return: the value of the arguement
 		:rtype: str
 		"""
-		try:
-			conf = open(self.db,'r')
-			lines=conf.readlines()
-			conf.close()
-			file_len=len(lines)-1
-			flag = False
-			# Find the arguement and set the value
-			for i in range(file_len):
-				if lines[i][0] != '#':
-					if lines[i].split('=')[0].strip() == name:
-						value = lines[i].split('=')[1].replace(' ', '').strip()
-						flag = True
-			if flag:
-				return value
-			else:
-				return default_value
-		except FileNotFoundError:
-			conf = open(self.db,'w')
-			conf.write("")
-			conf.close()
-			return default_value
-		except :
-			return default_value
+		# try:
+		# 	conf = open(self.db,'r')
+		# 	lines=conf.readlines()
+		# 	conf.close()
+		# 	file_len=len(lines)-1
+		# 	flag = False
+		# 	# Find the arguement and set the value
+		# 	for i in range(file_len):
+		# 		if lines[i][0] != '#':
+		# 			if lines[i].split('=')[0].strip() == name:
+		# 				value = lines[i].split('=')[1].replace(' ', '').strip()
+		# 				flag = True
+		# 	if flag:
+		# 		return value
+		# 	else:
+		# 		#return default_value
+		# 		pass
+		# except FileNotFoundError:
+		# 	pass
+		# 	#conf = open(self.db,'w')
+		# 	#conf.write("")
+		# 	#conf.close()
+		# 	return default_value
+		# except :
+		# 	return default_value
+		return default_value
 	
 	def set(self, name, value):
 		"""
@@ -120,22 +125,23 @@ class fileDB(object):
 		:type value: str
 		"""
 		# Read the file
-		conf = open(self.db,'r')
-		lines=conf.readlines()
-		conf.close()
-		file_len=len(lines)-1
-		flag = False
-		# Find the arguement and set the value
-		for i in range(file_len):
-			if lines[i][0] != '#':
-				if lines[i].split('=')[0].strip() == name:
-					lines[i] = '%s = %s\n' % (name, value)
-					flag = True
-		# If arguement does not exist, create one
-		if not flag:
-			lines.append('%s = %s\n\n' % (name, value))
+		# conf = open(self.db,'r')
+		# lines=conf.readlines()
+		# conf.close()
+		# file_len=len(lines)-1
+		# flag = False
+		# # Find the arguement and set the value
+		# for i in range(file_len):
+		# 	if lines[i][0] != '#':
+		# 		if lines[i].split('=')[0].strip() == name:
+		# 			lines[i] = '%s = %s\n' % (name, value)
+		# 			flag = True
+		# # If arguement does not exist, create one
+		# if not flag:
+		# 	lines.append('%s = %s\n\n' % (name, value))
 
-		# Save the file
-		conf = open(self.db,'w')
-		conf.writelines(lines)
-		conf.close()
+		# # Save the file
+		# conf = open(self.db,'w')
+		# conf.writelines(lines)
+		# conf.close()
+		pass

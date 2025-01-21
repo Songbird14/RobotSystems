@@ -3,7 +3,7 @@ from .basic import _Basic_class
 from .utils import command_exists
 import time
 import threading
-import pyaudio
+#import pyaudio
 import os
 import struct
 import math
@@ -11,9 +11,9 @@ import math
 class Music(_Basic_class):
     """Play music, sound affect and note control"""
 
-    FORMAT = pyaudio.paInt16
-    CHANNELS = 1
-    RATE = 44100
+    # FORMAT = pyaudio.paInt16
+    # CHANNELS = 1
+    # RATE = 44100
 
     KEY_G_MAJOR = 1
     KEY_D_MAJOR = 2
@@ -337,10 +337,10 @@ class Music(_Basic_class):
         """
         Credit to: Aditya Shankar & Gringo Suave https://stackoverflow.com/a/53231212/14827323
         """
-        p = pyaudio.PyAudio()
-        frames = self.get_tone_data(freq, duration)
-        stream = p.open(format=self.FORMAT, channels=self.CHANNELS,
-                        rate=self.RATE, output=True)
-        stream.write(frames)
+        # p = pyaudio.PyAudio()
+        # frames = self.get_tone_data(freq, duration)
+        # stream = p.open(format=self.FORMAT, channels=self.CHANNELS,
+        #                 rate=self.RATE, output=True)
+        # stream.write(frames)
         # stream.stop_stream()
         # stream.close()
