@@ -213,18 +213,19 @@ class Picarx(object):
             w = speed
             l = 95
             d = 110
-            x = (l/numpy.tan(current_angle))-(d/2)
-            speed_ak = w * x
+            x = (l/numpy.tan(numpy.radians(current_angle)))
+            speed_ak_right = w *(x-(d/2))
+            speed_ak_left = w * (x+(d/2))
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
             #power_scale = (100 - abs_current_angle) / 100.0 
             power_scale = 1
             if (current_angle / abs_current_angle) > 0:
-                self.set_motor_speed(1, -1*speed_ak)
-                self.set_motor_speed(2, speed_ak * power_scale)
+                self.set_motor_speed(1, -1*speed_ak_left)
+                self.set_motor_speed(2, speed_ak_right * power_scale)
             else:
-                self.set_motor_speed(1, -1*speed_ak * power_scale)
-                self.set_motor_speed(2, speed_ak )
+                self.set_motor_speed(1, -1*speed_ak_left * power_scale)
+                self.set_motor_speed(2, speed_ak_right )
         else:
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
@@ -237,18 +238,19 @@ class Picarx(object):
             w = speed
             l = 95
             d = 110
-            x = (l/numpy.tan(current_angle))-(d/2)
-            speed_ak = w * x
+            x = (l/numpy.tan(numpy.radians(current_angle)))
+            speed_ak_right = w *(x-(d/2))
+            speed_ak_left = w * (x+(d/2))
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
             #power_scale = (100 - abs_current_angle) / 100.0
             power_scale = 1
             if (current_angle / abs_current_angle) > 0:   #CCW
-                self.set_motor_speed(1, 1*speed_ak * power_scale)
-                self.set_motor_speed(2, -speed_ak) 
+                self.set_motor_speed(1, 1*speed_ak_left * power_scale)
+                self.set_motor_speed(2, -speed_ak_right) 
             else:
-                self.set_motor_speed(1, speed_ak)
-                self.set_motor_speed(2, -1*speed_ak * power_scale)
+                self.set_motor_speed(1, speed_ak_left)
+                self.set_motor_speed(2, -1*speed_ak_right * power_scale)
         else:
             self.set_motor_speed(1, speed)
             self.set_motor_speed(2, -1*speed)                  
@@ -304,6 +306,7 @@ class Picarx(object):
     def move_forward(self,speed,angle):
         self.set_dir_servo_angle(angle)
         self.forward(speed)
+        self.stop
 
     def move_backward (self, speed,angle):
         self.set_dir_servo_angle(angle)
