@@ -313,6 +313,9 @@ class Picarx(object):
     def move_backward (self, speed,angle):
         self.set_dir_servo_angle(angle)
         self.backward(speed)
+        time.sleep(2)
+        self.stop()
+        self.stop()
 
     def parallel_park (self):
         #forward turn
