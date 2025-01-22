@@ -224,8 +224,8 @@ class Picarx(object):
                 self.set_motor_speed(1, -1*speed_ak_left)
                 self.set_motor_speed(2, 1*speed_ak_right * power_scale)
             else:
-                self.set_motor_speed(1, -1*speed_ak_left * power_scale)
-                self.set_motor_speed(2, speed_ak_right )
+                self.set_motor_speed(1, 1*speed_ak_left * power_scale)
+                self.set_motor_speed(2, -speed_ak_right )
         else:
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
@@ -249,8 +249,8 @@ class Picarx(object):
             power_scale = 1
             if (current_angle / abs_current_angle) > 0:   #CCW
                 logging.debug(f'current_angle',current_angle)
-                self.set_motor_speed(1, -speed_ak_left * power_scale)
-                self.set_motor_speed(2, 1*speed_ak_right) 
+                self.set_motor_speed(1, speed_ak_left * power_scale)
+                self.set_motor_speed(2, -1*speed_ak_right) 
             else:
                 self.set_motor_speed(1, -speed_ak_left)
                 self.set_motor_speed(2, 1*speed_ak_right * power_scale)
