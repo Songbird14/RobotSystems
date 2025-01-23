@@ -210,10 +210,10 @@ class Picarx(object):
         if current_angle != 0:
             abs_current_angle = abs(current_angle)
              #akmann steering addition
-            w = speed
             l = 95
             d = 110
-            x = (l/numpy.tan(numpy.radians(current_angle)))
+            x = (l/math.tan(math.radians(current_angle)))
+            w=speed/x
             speed_ak_right = w *(x-(d/2))
             speed_ak_left = w * (x+(d/2))
             if abs_current_angle > self.DIR_MAX:
