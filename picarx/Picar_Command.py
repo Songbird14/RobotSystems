@@ -22,6 +22,10 @@ while keep_going:
 
     elif val == 4: 
         px.k_turn()
+
+    elif val == 9: 
+        px.move_forward(0,0)
+
     
     elif val == 0:
         keep_going = False

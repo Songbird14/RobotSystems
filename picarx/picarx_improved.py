@@ -241,8 +241,8 @@ class Picarx(object):
             x = (l/numpy.tan(numpy.radians(current_angle)))
             speed_ak_right = w *(x-(d/2))
             speed_ak_left = w * (x+(d/2))
-            print (speed_ak_left)
-            print(speed_ak_right)
+            #print (speed_ak_left)
+            #print(speed_ak_right)
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
             #power_scale = (100 - abs_current_angle) / 100.0
@@ -256,7 +256,7 @@ class Picarx(object):
                 self.set_motor_speed(2, 1*speed_ak_right * power_scale)
         else:
             self.set_motor_speed(1, speed)
-            print(speed)
+            #print(speed)
             self.set_motor_speed(2, -1*speed)                  
 
     def stop(self): ###############
@@ -310,14 +310,14 @@ class Picarx(object):
     def move_forward(self,speed,angle):
         self.set_dir_servo_angle(angle)
         self.forward(speed)
-        time.sleep(2)
+        time.sleep(4)
         self.stop()
         self.stop()
 
     def move_backward (self, speed,angle):
         self.set_dir_servo_angle(angle)
         self.backward(speed)
-        time.sleep(2)
+        time.sleep(4)
         self.stop()
         self.stop()
 
@@ -330,13 +330,12 @@ class Picarx(object):
         self.move_forward (15,-10)
     
     def k_turn (self):
-        #turn 
-        self.move_forward (10,35)
-        #go backwards
-        self.move_backward (15,0)
-        #turn other way 
-        self.move_forward (10,-35)
-
+        self.move_forward (20,20)
+        self.move_backward (10,-10)
+        self.move_forward (0,0)
+        self.move_forward (10,5)
+        self.move_forward (0,0)
+        self.move_forward (10,0)
 
 if __name__ == "__main__":
     px = Picarx()
