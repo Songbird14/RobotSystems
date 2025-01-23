@@ -322,18 +322,16 @@ class Picarx(object):
         self.stop()
 
     def parallel_park (self):
-        #forward turn
-        self.move_forward (15,10)
-        #back up the otther angle 
-        self.move_backward (15,0)
-        #pull forward 
-        self.move_forward (15,-10)
+        self.move_forward (40,15)
+        self.move_forward (30,-10)
+        self.move_backward (30,10)
+        self.move_backward(30,-10)
     
     def k_turn (self):
-        self.move_forward (20,-5)
-        self.move_backward (20,10)
-        self.move_backward(30,0)
-        self.move_forward (10,-3)
+        self.move_forward (50,-5)
+        self.move_backward (40,10)
+        self.move_backward(20,0)
+        self.move_forward (50,-8)
 
 if __name__ == "__main__":
     px = Picarx()
