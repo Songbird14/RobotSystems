@@ -6,7 +6,7 @@ import os
 import atexit
 import logging 
 #from logdecorator import log_on_start, log_on_end, log_on_error
-import numpy
+import math
 #set up basic logging infomration 
 logging_format = "%(asctime)s: %(message)s"
 logging.basicConfig(format=logging_format, level=logging.INFO,datefmt="%H:%M:%S")
@@ -235,10 +235,10 @@ class Picarx(object):
         if current_angle != 0:
             abs_current_angle = abs(current_angle)
              #akmann steering addition
-            w = speed
             l = 95
             d = 110
-            x = (l/numpy.tan(numpy.radians(current_angle)))
+            x = (l/math.tan(math.radians(current_angle)))
+            w=speed/x
             speed_ak_right = w *(x-(d/2))
             speed_ak_left = w * (x+(d/2))
             #print (speed_ak_left)
