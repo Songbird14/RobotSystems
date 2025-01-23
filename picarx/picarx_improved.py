@@ -330,12 +330,10 @@ class Picarx(object):
         self.move_forward (15,-10)
     
     def k_turn (self):
-        self.move_forward (20,20)
-        self.move_backward (10,-10)
-        self.move_forward (0,0)
-        self.move_forward (10,5)
-        self.move_forward (0,0)
-        self.move_forward (10,0)
+        self.move_forward (20,-5)
+        self.move_backward (20,10)
+        self.move_backward(30,0)
+        self.move_forward (10,-3)
 
 if __name__ == "__main__":
     px = Picarx()
