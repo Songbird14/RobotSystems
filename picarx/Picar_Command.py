@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import picarx_improved
 
 px = picarx_improved.Picarx()
@@ -23,11 +24,11 @@ while keep_going:
     elif val == 4: 
         px.k_turn()
 
-    elif val == 9: 
+    elif val == 9:  #straighten out the wheels 
         px.move_forward(0,0)
 
     
-    elif val == 0:
+    elif val == 0:  #quit the program
         keep_going = False
     else: 
         print('Invalid command. Try again')

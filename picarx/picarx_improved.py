@@ -67,6 +67,7 @@ class Picarx(object):
                 ultrasonic_pins:list=['D2','D3'],
                 config:str=CONFIG,
                 ):
+        atexit.register(self.reset)
 
         # reset robot_hat
         utils.reset_mcu()
@@ -223,26 +224,27 @@ class Picarx(object):
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, -1*speed_ak_left)
                 self.set_motor_speed(2, 1*speed_ak_right * power_scale)
+                logging.debug('Driving backwards and turn left') 
             else:
                 self.set_motor_speed(1, -1*speed_ak_left * power_scale)
                 self.set_motor_speed(2, speed_ak_right )
+                logging.debug('Driving backward and turn right') 
         else:
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
+            logging.debug('Driving backward and straight') 
 
     def forward(self, speed):
         current_angle = self.dir_current_angle
         if current_angle != 0:
             abs_current_angle = abs(current_angle)
-             #akmann steering addition
+             ##akmann steering addition
             l = 95
             d = 110
             x = (l/math.tan(math.radians(current_angle)))
             w=speed/x
             speed_ak_right = w *(x-(d/2))
             speed_ak_left = w * (x+(d/2))
-            #print (speed_ak_left)
-            #print(speed_ak_right)
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
             #power_scale = (100 - abs_current_angle) / 100.0
@@ -251,15 +253,17 @@ class Picarx(object):
                 logging.debug(f'current_angle',current_angle)
                 self.set_motor_speed(1, speed_ak_left * power_scale)
                 self.set_motor_speed(2, -1*speed_ak_right) 
+                logging.debug('Driving Forward and turn right') 
             else:
                 self.set_motor_speed(1, 1*speed_ak_left)
                 self.set_motor_speed(2, -1*speed_ak_right * power_scale)
+                logging.debug('Driving Forward and turn left') 
         else:
             self.set_motor_speed(1, speed)
-            #print(speed)
-            self.set_motor_speed(2, -1*speed)                  
+            self.set_motor_speed(2, -1*speed)  
+            logging.debug('Driving Forward Staight')                
 
-    def stop(self): ###############
+    def stop(self): 
         '''
         Execute twice to make sure it stops
         '''
@@ -337,5 +341,4 @@ if __name__ == "__main__":
     px = Picarx()
     px.forward(50)
     time.sleep(1)
-    #px.stop()  ## Is this what we're supposed to do for 2.7.1? 
-    atexit.register(px.stop)
+    #atexit.register(px.stop)
