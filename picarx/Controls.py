@@ -68,7 +68,7 @@ def follow_the_line():
 
     time_limit = 60
     time_out_start =time.time()
-
+    sensor.px.forward(25)
     while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
         print(data)
@@ -77,10 +77,10 @@ def follow_the_line():
         contol = angle.drive_along(position)
         print(contol)
         if position != -2:
-            sensor.px.move_forward(25,contol)
+            sensor.px.set_dir_servo_angle(contol)
         # else:
         #     px.backward(10,0)
-        time.sleep(.5)
+
 
 
 if __name__== "__main__":
