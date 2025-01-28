@@ -11,7 +11,7 @@ class Sensing():
         return self.px.grayscale.read()
    
 class Interpretation(): 
-   def __init__(self, tolerance= 10): 
+   def __init__(self, tolerance= 50): 
        self.px = Picarx()
        self.tolerance = tolerance
 
@@ -71,7 +71,7 @@ def follow_the_line():
 
     while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
-        position = Interpretation.processing(data)
+        position = think.processing(data)
         print(position)
         # contol = angle.drive_along(position)
         # if position != -2:
