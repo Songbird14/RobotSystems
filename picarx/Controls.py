@@ -19,8 +19,12 @@ class Interpretation():
     middle = data[1]
     right = data[2]
 
+    data_norm=data
     normal = max(data)-min(data)
-    data_norm=data/normal
+    data_norm[0]=data[0]/normal
+    data_norm[1]=data[1]/normal
+    data_norm[2]=data[3]/normal
+    
     data_norm = data
     print(data)
     diff_lm = data[0] - data[1]
