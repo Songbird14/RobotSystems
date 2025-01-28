@@ -78,7 +78,7 @@ def follow_the_line():
         #     px.forward(10,contol)
         # else:
         #     px.backward(10,0)
-         time.sleep(1)
+        time.sleep(1)
 
 
 if __name__== "__main__":
