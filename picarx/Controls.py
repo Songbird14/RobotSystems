@@ -11,7 +11,7 @@ class Sensing():
         return self.px.grayscale.read()
    
 class Interpretation(): 
-   def __init__(self, tolerance= 50): 
+   def __init__(self, tolerance= 800): 
        self.tolerance = tolerance
 
    def processing(self, data):
