@@ -31,19 +31,19 @@ class Interpretation():
 
     if left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
         print ('tape on left, turn left') #L,H,H
-        position = -1
+        position = 1
     elif left_norm < self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
         print ('tape on between left and center, turn slightly right') #L,L,H
-        position = -.5
+        position = .5
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
         print('tape in the cetner, stay straight')
         position = 0    
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
         print ('tape on between center and right, turn slightly left') #L,L,H
-        position = .5 
+        position = -.5 
     elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
         print('tape on the right, turn left')
-        position = 1
+        position = -1
     else: 
         print('LOST!')
         position = -2
