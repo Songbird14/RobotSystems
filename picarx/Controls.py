@@ -64,7 +64,7 @@ def follow_the_line():
     sensor = Sensing()
     think = Interpretation()
     angle = Controller()
-    #px = Picarx()
+    px = Picarx()
 
     time_limit = 60
     time_out_start =time.time()
