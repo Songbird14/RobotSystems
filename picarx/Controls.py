@@ -52,7 +52,7 @@ class Interpretation():
     
 
 class Controller():
-    def __init__(self,P=30): 
+    def __init__(self,P=40): 
         self.position = input
         self.P = P
     def drive_along(self,input):
