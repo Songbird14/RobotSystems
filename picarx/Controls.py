@@ -77,7 +77,7 @@ def follow_the_line():
         contol = angle.drive_along(position)
         print(contol)
         if position != -2:
-            sensor.px.move_forward(10,contol)
+            sensor.px.move_forward(25,contol)
         # else:
         #     px.backward(10,0)
         time.sleep(.5)
