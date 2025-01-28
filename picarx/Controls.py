@@ -70,7 +70,8 @@ def follow_the_line():
 
     while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
-        position = think.processing(data)
+        print(data)
+        position = think.processing(data,50)
         print(position)
         # contol = angle.drive_along(position)
         # if position != -2:
