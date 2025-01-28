@@ -25,10 +25,8 @@ class Interpretation():
     middle_norm=data[1]/normal
     right_norm=data[2]/normal
     
-    data_norm = data
-    print(data)
-    diff_lm = data[0] - data[1]
-    diff_mr = data[1] - data[2]
+    data_norm = [left_norm,middle_norm,right_norm]
+    print(data_norm)
 
     if left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
         print ('tape on left, turn right') #L,H,H
