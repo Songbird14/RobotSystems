@@ -23,7 +23,7 @@ class Interpretation():
     normal = max(data)-min(data)
     data_norm[0]=data[0]/normal
     data_norm[1]=data[1]/normal
-    data_norm[2]=data[3]/normal
+    data_norm[2]=data[2]/normal
     
     data_norm = data
     print(data)
