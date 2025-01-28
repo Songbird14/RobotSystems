@@ -18,9 +18,15 @@ class Interpretation():
     left = data[0]
     middle = data[1]
     right = data[2]
+
+    normal = max(data)-min(data)
+    data_norm=data/normal
+    data_norm = data
+    print(data)
     diff_lm = data[0] - data[1]
     diff_mr = data[1] - data[2]
 
+ 
 
     if diff_lm < self.tolerance : 
         if left < middle:
