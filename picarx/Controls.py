@@ -12,10 +12,9 @@ class Sensing():
    
 class Interpretation(): 
    def __init__(self, tolerance= 50): 
-       self.px = Picarx()
        self.tolerance = tolerance
 
-   def processing(self, data,):
+   def processing(self, data):
     left = data[0]
     middle = data[1]
     right = data[2]
