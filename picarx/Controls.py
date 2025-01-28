@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from picarx_improved import Picarx
+import time
 
 class Sensing(): 
     def __init__(self):
@@ -21,53 +22,64 @@ class Interpretation():
     diff_lm = data[0] - data[1]
     diff_mr = data[1] - data[2]
 
-    #set up for returning speed, angles 
-    self.speed = 0 
-    self.angle = 0
 
     if diff_lm > self.tolerance : 
         if left < middle:
             print ('tape on left, turn right') #L,H,H
-            #self.speed = 10
-            #self.angle = 30
+            position = -1
         else:
             print ('tape on between left and center, turn slightly right') #L,L,H
-            #self.speed = 10
-            #self.angle = 15
+            position = -.5
+            
     elif diff_mr > self.tolerance:
         if right < middle: 
             print('tape on the right, turn left')
-            #self.speed = 10
-            #self.angle = -30
+            position = 1
+            
         else:
             print ('tape on between center and right, turn slightly left') #L,L,H
-            #self.speed = 10
-            #self.angle = -15
+            position = .5
+            
     elif (abs(diff_lm) - abs(diff_mr)) < self.tolerance: #H,L,H
         print('tape in the cetner, stay straight')
-        #self.speed = 10
-        #self.angle = 0
+        position = 0
+        
     else: 
         print('LOST!')
-        #self.speed = 0
-        #self.angle = 0
+        position = -2
 
-    return [self.speed, self.angle]
+    return position
     
-    #low equals darker 
-    #if all high do the previous action 
-    #normalize (take max and min)
-    
+
 class Controller():
-    def __init__(self): 
-        pass 
-    def drive_along(self):
-        pass
+    def __init__(self,P=20): 
+        self.position = input
+        self.P = P
+    def drive_along(self,input):
+        angle = input*self.P
+        return angle
 
 def follow_the_line():
+    time.sleep(2)
     sensor = Sensing()
-    think = Interpretation()
-    drive = Controller()
+    #think = Interpretation()
+   #angle = Controller()
+    #px = Picarx()
+
+   # time_limit = 4*60
+    #time_out_start =time.time()
+
+    #while time.time() != time_out_start+time_limit:
+    data = sensor.greyscale()
+    print(data)
+        # position = Interpretation.processing(data)
+        # contol = angle.drive_along(position)
+        # if position != -2:
+        #     px.forward(10,contol)
+        # else:
+        #     px.backward(10,0)
+        # time.sleep(1)
+
 
 if __name__== "__main__":
     follow_the_line()
