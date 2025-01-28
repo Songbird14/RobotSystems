@@ -88,7 +88,7 @@ def follow_the_line():
     time.sleep(2)
     sensor = Sensing()
     think = Interpretation()
-   #angle = Controller()
+    angle = Controller()
     #px = Picarx()
 
     time_limit = 60
@@ -99,7 +99,8 @@ def follow_the_line():
         print(data)
         position = think.processing(data)
         print(position)
-        # contol = angle.drive_along(position)
+        contol = angle.drive_along(position)
+        print(contol)
         # if position != -2:
         #     px.forward(10,contol)
         # else:
