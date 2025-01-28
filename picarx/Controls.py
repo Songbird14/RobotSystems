@@ -48,31 +48,6 @@ class Interpretation():
         print('LOST!')
         position = -2
 
-    # if diff_lm < self.tolerance : 
-    #     if left < middle:
-    #         print ('tape on left, turn right') #L,H,H
-    #         position = -1
-    #     else:
-    #         print ('tape on between left and center, turn slightly right') #L,L,H
-    #         position = -.5
-            
-    # elif diff_mr < self.tolerance:
-    #     if right < middle: 
-    #         print('tape on the right, turn left')
-    #         position = 1
-            
-    #     else:
-    #         print ('tape on between center and right, turn slightly left') #L,L,H
-    #         position = .5
-            
-    # elif (abs(diff_lm) - abs(diff_mr)) < self.tolerance: #H,L,H
-    #     print('tape in the cetner, stay straight')
-    #     position = 0
-        
-    # else: 
-    #     print('LOST!')
-    #     position = -2
-
     return position
     
 
@@ -101,11 +76,11 @@ def follow_the_line():
         print(position)
         contol = angle.drive_along(position)
         print(contol)
-        # if position != -2:
-        #     px.forward(10,contol)
+        if position != -2:
+            px.forward(10,contol)
         # else:
         #     px.backward(10,0)
-        time.sleep(1)
+        time.sleep(.5)
 
 
 if __name__== "__main__":
