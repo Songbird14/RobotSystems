@@ -11,7 +11,7 @@ class Sensing():
         return self.px.grayscale.read()
    
 class Interpretation(): 
-   def __init__(self, tolerance= 50): 
+   def __init__(self, tolerance= 500): 
        self.tolerance = tolerance
 
    def processing(self, data):
@@ -22,7 +22,7 @@ class Interpretation():
     diff_mr = data[1] - data[2]
 
 
-    if diff_lm > self.tolerance : 
+    if diff_lm < self.tolerance : 
         if left < middle:
             print ('tape on left, turn right') #L,H,H
             position = -1
@@ -30,7 +30,7 @@ class Interpretation():
             print ('tape on between left and center, turn slightly right') #L,L,H
             position = -.5
             
-    elif diff_mr > self.tolerance:
+    elif diff_mr < self.tolerance:
         if right < middle: 
             print('tape on the right, turn left')
             position = 1
