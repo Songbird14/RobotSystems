@@ -314,16 +314,14 @@ class Picarx(object):
     def move_forward(self,speed,angle):
         self.set_dir_servo_angle(angle)
         self.forward(speed)
-        time.sleep(.1)
-       # time.sleep(4)
+        time.sleep(4)
         self.stop()
         self.stop()
 
     def move_backward (self, speed,angle):
         self.set_dir_servo_angle(angle)
         self.backward(speed)
-        time.sleep(.1)
-        #time.sleep(4)
+        time.sleep(4)
         self.stop()
         self.stop()
 
