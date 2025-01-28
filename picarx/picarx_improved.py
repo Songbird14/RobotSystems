@@ -250,7 +250,7 @@ class Picarx(object):
             #power_scale = (100 - abs_current_angle) / 100.0
             power_scale = 1
             if (current_angle / abs_current_angle) > 0:   #CCW
-                logging.debug(f'current_angle',current_angle)
+                logging.debug(f'current_angle, {current_angle}')
                 self.set_motor_speed(1, speed_ak_left * power_scale)
                 self.set_motor_speed(2, -1*speed_ak_right) 
                 logging.debug('Driving Forward and turn right') 
