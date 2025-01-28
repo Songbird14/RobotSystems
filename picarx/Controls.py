@@ -21,41 +21,58 @@ class Interpretation():
 
     data_norm=data
     normal = max(data)-min(data)
-    data_norm[0]=data[0]/normal
-    data_norm[1]=data[1]/normal
-    data_norm[2]=data[2]/normal
+    left_norm=data[0]/normal
+    middle_norm=data[1]/normal
+    right_norm=data[2]/normal
     
     data_norm = data
     print(data)
     diff_lm = data[0] - data[1]
     diff_mr = data[1] - data[2]
 
- 
-
-    if diff_lm < self.tolerance : 
-        if left < middle:
-            print ('tape on left, turn right') #L,H,H
-            position = -1
-        else:
-            print ('tape on between left and center, turn slightly right') #L,L,H
-            position = -.5
-            
-    elif diff_mr < self.tolerance:
-        if right < middle: 
-            print('tape on the right, turn left')
-            position = 1
-            
-        else:
-            print ('tape on between center and right, turn slightly left') #L,L,H
-            position = .5
-            
-    elif (abs(diff_lm) - abs(diff_mr)) < self.tolerance: #H,L,H
+    if left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
+        print ('tape on left, turn right') #L,H,H
+        position = -1
+    elif left_norm < self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
+        print ('tape on between left and center, turn slightly right') #L,L,H
+        position = -.5
+    elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
         print('tape in the cetner, stay straight')
-        position = 0
-        
+        position = 0    
+    elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
+        print ('tape on between center and right, turn slightly left') #L,L,H
+        position = .5 
+    elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
+        print('tape on the right, turn left')
+        position = 1
     else: 
         print('LOST!')
         position = -2
+
+    # if diff_lm < self.tolerance : 
+    #     if left < middle:
+    #         print ('tape on left, turn right') #L,H,H
+    #         position = -1
+    #     else:
+    #         print ('tape on between left and center, turn slightly right') #L,L,H
+    #         position = -.5
+            
+    # elif diff_mr < self.tolerance:
+    #     if right < middle: 
+    #         print('tape on the right, turn left')
+    #         position = 1
+            
+    #     else:
+    #         print ('tape on between center and right, turn slightly left') #L,L,H
+    #         position = .5
+            
+    # elif (abs(diff_lm) - abs(diff_mr)) < self.tolerance: #H,L,H
+    #     print('tape in the cetner, stay straight')
+    #     position = 0
+        
+    # else: 
+    #     print('LOST!')
+    #     position = -2
 
     return position
     
