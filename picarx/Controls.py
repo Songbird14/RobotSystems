@@ -11,8 +11,9 @@ class Sensing():
         return self.px.grayscale.read()
    
 class Interpretation(): 
-   def __init__(self, tolerance =1 ): 
-       self.tolerance = tolerance
+   def __init__(self, tolerance_mid =1 , tolerance_out=.5 ): 
+       self.tolerance_mid = tolerance_mid
+       self.tolerance_out = tolerance_out
 
    def processing(self, data):
     left = data[0]
@@ -21,9 +22,9 @@ class Interpretation():
 
     data_norm=data
     normal = max(data)-min(data)
-    left_norm=data[0]/normal
-    middle_norm=data[1]/normal
-    right_norm=data[2]/normal
+    left_norm=(data[0]-min(data))/normal
+    middle_norm=(data[1]-min(data))/normal
+    right_norm=(data[2]-min(data))/normal
     
     data_norm = [left_norm,middle_norm,right_norm]
     print(data_norm)
