@@ -64,7 +64,7 @@ def follow_the_line():
     sensor = Sensing()
     think = Interpretation()
     angle = Controller()
-    px = Picarx()
+
 
     time_limit = 60
     time_out_start =time.time()
@@ -77,7 +77,7 @@ def follow_the_line():
         contol = angle.drive_along(position)
         print(contol)
         if position != -2:
-            px.move_forward(10,contol)
+            sensor.px.move_forward(10,contol)
         # else:
         #     px.backward(10,0)
         time.sleep(.5)
