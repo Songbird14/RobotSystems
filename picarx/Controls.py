@@ -44,7 +44,7 @@ class Interpretation():
     elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
         print('tape on the right, turn left')
         position = -1
-    else: 
+    elif left > 1000 and middle > 1000 and right > 1000:
         print('LOST!')
         position = -2
 
