@@ -36,7 +36,7 @@ class Interpretation():
         print ('tape on between left and center, turn slightly right') #L,L,H
         position = .5
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
-        print('tape in the cetner, stay straight')
+        print('tape in the cetner, stay straight') #L,H,L
         position = 0    
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
         print ('tape on between center and right, turn slightly left') #L,L,H
@@ -68,7 +68,7 @@ def follow_the_line():
 
     time_limit = 60
     time_out_start =time.time()
-    sensor.px.forward(25)
+    #sensor.px.forward(25)
     while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
         print(data)
@@ -76,8 +76,8 @@ def follow_the_line():
         print(position)
         contol = angle.drive_along(position)
         print(contol)
-        if position != -2:
-            sensor.px.set_dir_servo_angle(contol)
+        #if position != -2:
+           # sensor.px.set_dir_servo_angle(contol)
         # else:
         #     px.backward(10,0)
         time.sleep(.25)
