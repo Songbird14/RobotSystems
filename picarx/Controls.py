@@ -63,7 +63,6 @@ def follow_the_line():
     sensor = Sensing()
     think = Interpretation()
     angle = Controller()
-    time.sleep(2)
     previous_angle = 0
 
 
@@ -79,10 +78,10 @@ def follow_the_line():
         print(contol)
         if position != -2:
             sensor.px.set_dir_servo_angle(contol)
+            previous_angle = contol
         else:
             sensor.px.set_dir_servo_angle(previous_angle)
         time.sleep(.25)
-        previous_angle = contol
 
 
 
