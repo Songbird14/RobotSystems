@@ -63,6 +63,7 @@ def follow_the_line():
     sensor = Sensing()
     think = Interpretation()
     angle = Controller()
+    time.sleep(3)
     previous_angle = 0
 
 
