@@ -76,6 +76,7 @@ def follow_the_line():
         print(position)
         contol = angle.drive_along(position)
         print(contol)
+        time.sleep(.25)
         if position != -2:
             sensor.px.set_dir_servo_angle(contol)
         # else:
