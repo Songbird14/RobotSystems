@@ -38,7 +38,7 @@ class Interpretation():
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
         if left > 1000 and middle > 1000 and right > 1000:
             print('LOST!')
-            position = -2
+            position = .25
         else:
             print('tape in the cetner, stay straight') #L,H,L
             position = 0    
@@ -80,8 +80,8 @@ def follow_the_line():
         time.sleep(.25)
         if position != -2:
             sensor.px.set_dir_servo_angle(contol)
-        # else:
-        #     px.backward(10,0)
+        else:
+            px.backward(10,)
         time.sleep(.25)
 
 
