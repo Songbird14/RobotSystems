@@ -68,7 +68,7 @@ def follow_the_line():
 
     time_limit = 60
     time_out_start =time.time()
-    sensor.px.forward(20)
+    sensor.px.forward(25)
     while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
         print(data)
