@@ -29,17 +29,16 @@ class Interpretation():
     data_norm = [left_norm,middle_norm,right_norm]
     print(data_norm)
 
-    if left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
+    if left > 1000 and middle > 1000 and right > 1000:
+        print('LOST!')
+        position = -2
+    elif left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
         print ('tape on left, turn left') #L,H,H
         position = -1
     elif left_norm < self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
         print ('tape on between left and center, turn slightly right') #L,L,H
         position = -.5
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
-        if left > 1000 and middle > 1000 and right > 1000:
-            print('LOST!')
-            position = -.25
-        else:
             print('tape in the cetner, stay straight') #L,H,L
             position = 0    
     elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
@@ -53,7 +52,7 @@ class Interpretation():
     
 
 class Controller():
-    def __init__(self,P=25): 
+    def __init__(self,P=20): 
         self.position = input
         self.P = P
     def drive_along(self,input):
@@ -65,6 +64,7 @@ def follow_the_line():
     think = Interpretation()
     angle = Controller()
     time.sleep(2)
+    previous_angle = 0
 
 
     time_limit = 60
@@ -80,8 +80,9 @@ def follow_the_line():
         if position != -2:
             sensor.px.set_dir_servo_angle(contol)
         else:
-            px.backward(10,)
+            sensor.px.set_dir_servo_angle(previous_angle)
         time.sleep(.25)
+        previous_angle = contol
 
 
 
