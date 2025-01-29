@@ -81,7 +81,7 @@ def follow_the_line():
             sensor.px.set_dir_servo_angle(contol)
         else:
             px.backward(10,)
-        time.sleep(.1)
+        time.sleep(.25)
 
 
 
