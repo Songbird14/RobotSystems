@@ -80,14 +80,15 @@ class Interpretation():
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
         _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
-        contours,_=cv2.findContours(thresh,cv2.RETER_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        # edges = cv2.Canny(BnW,lower_limit, upper_limit)
+        contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
         cv2.drawContours(BnW,contours,-1,(0,255,0),2)
 
         cv2.imshow('Image with line detected',BnW)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         return BnW
-        # edges = cv2.Canny(BnW,lower_limit, upper_limit)
+
 
         # thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
         # cv2.imshow('Real_world',BnW)
