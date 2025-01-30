@@ -65,9 +65,14 @@ class Interpretation():
     return position
     
    def photo_processing(self,image): 
-        
-        BnW = cv2.imread(f'{path}/{image_name}.jpg')
-        BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY)
+        lower_limit =170
+        upper_limit = 149
+        BnW = cv2.imread(f'{self.path}/{self.image_name}.jpg') #load image
+        BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
+        edges = cv2.Canny(BnW,lower_limit, upper_limit)
+
+        thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
+        cv2.imshow(BnW)
         
 
        
@@ -112,12 +117,12 @@ def follow_the_line_greyscale():
 
 def follow_the_line_camera():
     sensor = Sensing(True)
-    #think = Interpretation()
+    think = Interpretation()
     #angle = Controller()
     #time.sleep(3)
     #previous_angle = 0
     image = sensor.camera()
-    Vilib.display(image)
+    process = think.photo_processing
 
 if __name__== "__main__":
     follow_the_line_camera()
