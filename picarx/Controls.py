@@ -2,7 +2,7 @@
 
 from picarx_improved import Picarx
 import time
-#mport logging
+import logging
 import cv2
 from vilib import Vilib 
 from PIL import Image 
