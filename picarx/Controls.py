@@ -166,8 +166,8 @@ def follow_the_line_camera():
         time.sleep(.25)
 
 if __name__== "__main__":
-    val = input("Enter your choice of maneuver: 1 for greyscale or 2 for camera")
-
+    val = input("Enter your choice of maneuver: ")
+    val = int(val)
     if val == 1:
         follow_the_line_greyscale()
 
