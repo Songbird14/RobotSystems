@@ -8,18 +8,22 @@ from vilib import Vilib
 class Sensing(): 
     def __init__(self, camera):
         self.px = Picarx()
-        if camera: 
-           print('in')
-           Vilib.camera.start()
-           time.sleep(0.5)
-           self.path = ''
-           self.image_name = 'real_world' 
+        # if camera: 
+        #    print('in')
+        #    Vilib.camera.start()
+        #    time.sleep(0.5)
+        #    self.path = ''
+        #    self.image_name = 'real_world' 
 
 
     def greyscale(self):
         return self.px.grayscale.read()
     
     def camera(self):
+        Vilib.camera.start()
+        time.sleep(0.5)
+        self.path = ''
+        self.image_name = 'real_world' 
         self.px.set_cam_tilt_angle(-35)
         Vilib.take_photo(self.image_name, self.path)
 
