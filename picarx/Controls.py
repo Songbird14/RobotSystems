@@ -119,7 +119,7 @@ def follow_the_line_greyscale():
     time_out_start =time.time()
     sensor.px.forward(25)
     while time.time() != time_out_start+time_limit:
-        data = sensor.greyscale()
+        data = sensor.greyscale(False)
         print(data)
         position = think.processing(data)
         print(position)
@@ -165,6 +165,6 @@ def follow_the_line_camera():
         time.sleep(.25)
 
 if __name__== "__main__":
-    follow_the_line_greyscale(False)
+    follow_the_line_greyscale()
 
     #follow_the_line_camera()
