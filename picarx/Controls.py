@@ -25,6 +25,7 @@ class Sensing():
         Vilib.take_photo(self.image_name, self.path)
         logging.debug('photo taken')
         time.sleep(.1)
+        return self.image_name,self.path
         
 
 class Interpretation(): 
@@ -68,11 +69,14 @@ class Interpretation():
 
     return position
     
-   def photo_processing(self,image): 
+   def photo_processing(self,image,path): 
         lower_limit =170
         upper_limit = 149
+        path = path
+        image_name = image
+        
         print('Started Processing')
-        BnW = cv2.imread(f'{self.path}/{self.image_name}.jpg') #load image
+        BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
         _,thresh = cv2.threshold(BnW,10,255,cv2.THRED_BINARY_INV)
@@ -137,7 +141,7 @@ def follow_the_line_camera():
     #time.sleep(3)
     #previous_angle = 0
     image = sensor.camera()
-    process = think.photo_processing(image)
+    process = think.photo_processing(image[0],image[1])
 
 if __name__== "__main__":
     follow_the_line_camera()
