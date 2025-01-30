@@ -22,6 +22,7 @@ class Sensing():
     def camera(self):
         self.px.set_cam_tilt_angle(-35)
         Vilib.take_photo(self.image_name, self.path)
+        time.sleep(.1)
 
 class Interpretation(): 
    def __init__(self, tolerance=.5, contrast = 1000): 
