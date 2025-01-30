@@ -166,6 +166,12 @@ def follow_the_line_camera():
         time.sleep(.25)
 
 if __name__== "__main__":
-    #follow_the_line_greyscale()
+    val = input("Enter your choice of maneuver: 1 for greyscale or 2 for camera")
 
-    follow_the_line_camera()
+    if val == 1:
+        follow_the_line_greyscale()
+
+    elif val == 2: 
+        follow_the_line_camera()
+    else: 
+        print('Invalid command. Try again')
