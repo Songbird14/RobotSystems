@@ -93,9 +93,9 @@ class Interpretation():
 
         #get x,y coordinate of center 
         cX = int(M["m10"] / M["m00"])
-        cY = int(M["m01"] / M["m00"])
+       # cY = int(M["m01"] / M["m00"])
 
-        position = (int(M["m10"] - cX))/(width/2)
+        position = ((width/2)-cX)/(width/2)
         return position 
        
 
@@ -143,7 +143,6 @@ def follow_the_line_camera():
     angle = Controller()
     time.sleep(3)
     previous_angle = 0
-    #process = think.photo_processing(image[0],image[1])
 
     time_limit = 60
     time_out_start =time.time()
@@ -166,5 +165,6 @@ def follow_the_line_camera():
         time.sleep(.25)
 
 if __name__== "__main__":
+    follow_the_line_greyscale()
+
     follow_the_line_camera()
-    #follow_the_line_greyscale()
