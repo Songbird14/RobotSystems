@@ -88,15 +88,20 @@ class Interpretation():
         cv2.imshow('Contours',BnW)
         cv2.waitKey(100)
 
+        if (len(contours)) == 0:
+            position
         tape = max(contours, key=cv2.contourArea)
         print(tape)
         M = cv2.moments(tape)  #find the centroid of the tape 
 
         #get x,y coordinate of center 
-        cX = int(M["m10"] / M["m00"])
+        if M['m00'] != 0:
+            cX = int(M["m10"] / M["m00"])
+            position = (cX-(width/2))/(width/2)
+        else:
+            position = -2
+    
        # cY = int(M["m01"] / M["m00"])
-
-        position = (cX-(width/2))/(width/2)
         return position 
        
 
