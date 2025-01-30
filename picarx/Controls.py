@@ -16,7 +16,7 @@ class Sensing():
            self.path = "picarx"
            self.image_name = 'real_world' 
            self.px.set_cam_tilt_angle(-35)
-
+           time.sleep(.5)
 
     def greyscale(self):
         return self.px.grayscale.read()
