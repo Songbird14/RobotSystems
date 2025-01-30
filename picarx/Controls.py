@@ -79,14 +79,14 @@ class Interpretation():
         BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
-        _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
-        # edges = cv2.Canny(BnW,lower_limit, upper_limit)
+        #_,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
+        thresh = cv2.Canny(BnW,30, 200)
         contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
-        edged_image = cv2.drawContours(BnW,contours,-1,(0,255,0),3)
-
+        cv2.drawContours(BnW,contours,-1,(0,255,0),3)
+        print("Number of Contours found = " + str(len(contours))) 
         cv2.imshow('Contours',BnW)
         cv2.waitKey(100)
-        return edged_image
+       
 
 
         # thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
