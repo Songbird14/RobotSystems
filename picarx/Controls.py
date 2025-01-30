@@ -125,4 +125,6 @@ def follow_the_line_camera():
 
 if __name__== "__main__":
     #follow_the_line_greyscale()
-    follow_the_line_camera()
+    Vilib.camera.start()
+    time.sleep(0.5)
+    Vilib.display()
