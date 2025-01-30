@@ -68,6 +68,7 @@ class Interpretation():
    def photo_processing(self,image): 
         lower_limit =170
         upper_limit = 149
+        print('Started Processing')
         BnW = cv2.imread(f'{self.path}/{self.image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
