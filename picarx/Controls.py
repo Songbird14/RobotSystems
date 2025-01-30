@@ -89,7 +89,7 @@ class Interpretation():
         cv2.waitKey(100)
 
         if (len(contours)) == 0:
-            position
+            position = -2
         tape = max(contours, key=cv2.contourArea)
         print(tape)
         M = cv2.moments(tape)  #find the centroid of the tape 
