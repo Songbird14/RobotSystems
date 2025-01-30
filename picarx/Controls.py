@@ -24,7 +24,7 @@ class Sensing():
     
     def camera(self):
         Vilib.take_photo(self.image_name, self.path)
-        logging.debug('photo taken')
+        logging.info('photo taken')
         time.sleep(.1)
         return (self.image_name,self.path)
         
@@ -73,10 +73,10 @@ class Interpretation():
    def photo_processing(self,image,path): 
         path = path
         image_name = image
-        width = image.width
         
         print('Started Processing')
         BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
+        _, width = BnW.shape
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
         _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
