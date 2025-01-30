@@ -108,7 +108,7 @@ class Controller():
         return angle
 
 def follow_the_line_greyscale():
-    sensor = Sensing()
+    sensor = Sensing(False)
     think = Interpretation()
     angle = Controller()
     time.sleep(3)
@@ -119,7 +119,7 @@ def follow_the_line_greyscale():
     time_out_start =time.time()
     sensor.px.forward(25)
     while time.time() != time_out_start+time_limit:
-        data = sensor.greyscale(False)
+        data = sensor.greyscale()
         print(data)
         position = think.processing(data)
         print(position)
