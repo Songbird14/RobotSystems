@@ -26,7 +26,7 @@ class Sensing():
         Vilib.take_photo(self.image_name, self.path)
         logging.debug('photo taken')
         time.sleep(.1)
-        return self.image_name,self.path
+        return (self.image_name,self.path)
         
 
 class Interpretation(): 
