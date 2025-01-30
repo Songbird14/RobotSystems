@@ -81,7 +81,7 @@ class Interpretation():
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
         #_,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
-        thresh = cv2.Canny(BnW,30, 255)
+        thresh = cv2.Canny(BnW,30, 200)
         contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
         cv2.drawContours(BnW,contours,-1,(0,255,0),3)
         #print("Number of Contours found = " + str(len(contours))) 
@@ -90,6 +90,7 @@ class Interpretation():
 
         if (len(contours)) == 0:
             position = -2
+            print('no_countours')
         else:
             tape = max(contours, key=cv2.contourArea)
             #print(tape)
@@ -101,6 +102,7 @@ class Interpretation():
                 position = (cX-(width/2))/(width/2)
             else:
                 position = -2
+                print('lost!')
     
        # cY = int(M["m01"] / M["m00"])
         return position 
