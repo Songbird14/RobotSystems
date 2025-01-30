@@ -2,6 +2,7 @@
 
 from picarx_improved import Picarx
 import time
+import logging
 import cv2
 from vilib import Vilib 
 
@@ -14,15 +15,17 @@ class Sensing():
            time.sleep(0.5)
            self.path = ''
            self.image_name = 'real_world' 
+           self.px.set_cam_tilt_angle(-35)
 
 
     def greyscale(self):
         return self.px.grayscale.read()
     
     def camera(self):
-        self.px.set_cam_tilt_angle(-35)
         Vilib.take_photo(self.image_name, self.path)
+        logging.debug('photo taken')
         time.sleep(.1)
+        
 
 class Interpretation(): 
    def __init__(self, tolerance=.5, contrast = 1000): 
