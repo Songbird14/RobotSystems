@@ -120,6 +120,7 @@ def follow_the_line_camera():
     #angle = Controller()
     #time.sleep(3)
     #previous_angle = 0
+    image = sensor.camera()
     
 
 if __name__== "__main__":
