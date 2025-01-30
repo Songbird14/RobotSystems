@@ -85,8 +85,7 @@ class Interpretation():
         cv2.drawContours(BnW,contours,-1,(0,255,0),2)
 
         cv2.imshow('Image with line detected',BnW)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        cv2.waitKey(100)
         return BnW
 
 
