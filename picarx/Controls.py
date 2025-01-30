@@ -90,16 +90,17 @@ class Interpretation():
 
         if (len(contours)) == 0:
             position = -2
-        tape = max(contours, key=cv2.contourArea)
-        print(tape)
-        M = cv2.moments(tape)  #find the centroid of the tape 
+        else:
+            tape = max(contours, key=cv2.contourArea)
+            #print(tape)
+            M = cv2.moments(tape)  #find the centroid of the tape 
 
         #get x,y coordinate of center 
-        if M['m00'] != 0:
-            cX = int(M["m10"] / M["m00"])
-            position = (cX-(width/2))/(width/2)
-        else:
-            position = -2
+            if M['m00'] != 0:
+                cX = int(M["m10"] / M["m00"])
+                position = (cX-(width/2))/(width/2)
+            else:
+                position = -2
     
        # cY = int(M["m01"] / M["m00"])
         return position 
