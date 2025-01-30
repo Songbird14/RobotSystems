@@ -13,7 +13,7 @@ class Sensing():
            print('in')
            Vilib.camera_start()
            time.sleep(0.5)
-           self.path = ''
+           self.path = "picarx"
            self.image_name = 'real_world' 
            self.px.set_cam_tilt_angle(-35)
 
