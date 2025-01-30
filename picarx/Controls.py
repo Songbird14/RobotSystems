@@ -2,18 +2,28 @@
 
 from picarx_improved import Picarx
 import time
+import cv2
+from vilib import Vilib 
 
 class Sensing(): 
     def __init__(self):
         self.px = Picarx()
+        if camera: 
+           Vilib.camera.start()
+           time.sleep(0.5)
+           self.path = 'picarx'
+           self.image_name = 'image' 
 
     def greyscale(self):
         return self.px.grayscale.read()
+    def camera(self):
+        Vilib.take_photo(self.image_name, self.path)
    
 class Interpretation(): 
-   def __init__(self, tolerance=.5 ): 
+   def __init__(self, tolerance=.5, contrast = 1000): 
        self.tolerance = tolerance
-       #self.tolerance_out = tolerance_out
+       self.contrast = contrast  #1000 for desk #300 for guitar road 
+
 
    def processing(self, data):
     left = data[0]
@@ -29,7 +39,7 @@ class Interpretation():
     data_norm = [left_norm,middle_norm,right_norm]
     print(data_norm)
 
-    if left > 1000 and middle > 1000 and right > 1000:
+    if left > self.contrast and middle > self.contrast and right > self.contrast:
         print('LOST!')
         position = -2
     elif left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
@@ -59,7 +69,7 @@ class Controller():
         angle = input*self.P
         return angle
 
-def follow_the_line():
+def follow_the_line_greyscale():
     sensor = Sensing()
     think = Interpretation()
     angle = Controller()
@@ -89,7 +99,14 @@ def follow_the_line():
                 sensor.px.set_dir_servo_angle(0)
         time.sleep(.25)
 
+def follow_the_line_camera(path, image_name):
+    BnW = cv2.imread(f'{path}/{image_name}.jpg')
+    BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY)
+   # BnW = BnW[img_]
 
 
 if __name__== "__main__":
-    follow_the_line()
+    #follow_the_line_greyscale()
+    Vilib.camera.start()
+    time.sleep(0.5)
+    Vilib.display()
