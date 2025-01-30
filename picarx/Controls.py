@@ -96,7 +96,7 @@ class Interpretation():
         cX = int(M["m10"] / M["m00"])
        # cY = int(M["m01"] / M["m00"])
 
-        position = ((width/2)-cX)/(width/2)
+        position = (cX-(width/2))/(width/2)
         return position 
        
 
