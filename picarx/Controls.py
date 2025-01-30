@@ -9,6 +9,7 @@ class Sensing():
     def __init__(self, camera):
         self.px = Picarx()
         if camera: 
+           print('in')
            Vilib.camera.start()
            time.sleep(0.5)
            self.path = ''
