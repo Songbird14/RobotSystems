@@ -69,10 +69,20 @@ class Interpretation():
         upper_limit = 149
         BnW = cv2.imread(f'{self.path}/{self.image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
-        edges = cv2.Canny(BnW,lower_limit, upper_limit)
 
-        thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
-        cv2.imshow(BnW)
+        _,thresh = cv2.threshold(BnW,10,255,cv2.THRED_BINARY_INV)
+        contours,_=cv2.findContours(thresh,cv2.RETER_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(BnW,contours,-1,(0,255,0),2)
+
+        cv2.imshow('Image with line detected',BnW)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        return BnW
+        # edges = cv2.Canny(BnW,lower_limit, upper_limit)
+
+        # thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
+        # cv2.imshow('Real_world',BnW)
+
         
 
        
@@ -122,7 +132,7 @@ def follow_the_line_camera():
     #time.sleep(3)
     #previous_angle = 0
     image = sensor.camera()
-    process = think.photo_processing
+    process = think.photo_processing(image)
 
 if __name__== "__main__":
     follow_the_line_camera()
