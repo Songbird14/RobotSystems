@@ -90,7 +90,7 @@ class Interpretation():
 
         tape = max(contours, key=cv2.contourArea)
         print(tape)
-        M = cv2.moment(tape)  #find the centroid of the tape 
+        M = cv2.moments(tape)  #find the centroid of the tape 
 
         #get x,y coordinate of center 
         cX = int(M["m10"] / M["m00"])
