@@ -71,8 +71,6 @@ class Interpretation():
     return position
     
    def photo_processing(self,image,path): 
-        # lower_limit =170
-        # upper_limit = 149
         path = path
         image_name = image
         width = image.width
@@ -145,7 +143,7 @@ def follow_the_line_camera():
     angle = Controller()
     time.sleep(3)
     previous_angle = 0
-    process = think.photo_processing(image[0],image[1])
+    #process = think.photo_processing(image[0],image[1])
 
     time_limit = 60
     time_out_start =time.time()
