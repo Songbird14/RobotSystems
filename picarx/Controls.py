@@ -79,7 +79,7 @@ class Interpretation():
         BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
-        _,thresh = cv2.threshold(BnW,10,255,cv2.THRED_BINARY_INV)
+        _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
         contours,_=cv2.findContours(thresh,cv2.RETER_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         cv2.drawContours(BnW,contours,-1,(0,255,0),2)
 
