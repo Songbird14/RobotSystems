@@ -6,19 +6,22 @@ import cv2
 from vilib import Vilib 
 
 class Sensing(): 
-    def __init__(self):
+    def __init__(self, camera):
         self.px = Picarx()
         if camera: 
            Vilib.camera.start()
            time.sleep(0.5)
-           self.path = 'picarx'
-           self.image_name = 'image' 
+           self.path = ''
+           self.image_name = 'real_world' 
+
 
     def greyscale(self):
         return self.px.grayscale.read()
+    
     def camera(self):
+        self.px.set_cam_tilt_angle(-35)
         Vilib.take_photo(self.image_name, self.path)
-   
+
 class Interpretation(): 
    def __init__(self, tolerance=.5, contrast = 1000): 
        self.tolerance = tolerance
@@ -60,6 +63,13 @@ class Interpretation():
 
     return position
     
+   def photo_processing(self,image): 
+        
+        BnW = cv2.imread(f'{path}/{image_name}.jpg')
+        BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY)
+        
+
+       
 
 class Controller():
     def __init__(self,P=30): 
@@ -99,14 +109,14 @@ def follow_the_line_greyscale():
                 sensor.px.set_dir_servo_angle(0)
         time.sleep(.25)
 
-def follow_the_line_camera(path, image_name):
-    BnW = cv2.imread(f'{path}/{image_name}.jpg')
-    BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY)
-   # BnW = BnW[img_]
-
+def follow_the_line_camera():
+    sensor = Sensing(True)
+    #think = Interpretation()
+    #angle = Controller()
+    #time.sleep(3)
+    #previous_angle = 0
+    
 
 if __name__== "__main__":
     #follow_the_line_greyscale()
-    Vilib.camera_start()
-    time.sleep(0.5)
-    Vilib.display()
+    follow_the_line_camera()
