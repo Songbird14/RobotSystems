@@ -5,6 +5,7 @@ import time
 import logging
 import cv2
 from vilib import Vilib 
+from PIL import Image 
 
 class Sensing(): 
     def __init__(self, camera):
@@ -70,30 +71,34 @@ class Interpretation():
     return position
     
    def photo_processing(self,image,path): 
-        lower_limit =170
-        upper_limit = 149
+        # lower_limit =170
+        # upper_limit = 149
         path = path
         image_name = image
+        width = image.width
         
         print('Started Processing')
         BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
-        #_,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
-        thresh = cv2.Canny(BnW,30, 200)
+        _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
+        #thresh = cv2.Canny(BnW,30, 200)
         contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
         cv2.drawContours(BnW,contours,-1,(0,255,0),3)
         print("Number of Contours found = " + str(len(contours))) 
         cv2.imshow('Contours',BnW)
         cv2.waitKey(100)
-       
 
+        tape = max(contours)
+        print(tape)
+        M = cv2.moment(tape)  #find the centroid of the tape 
 
-        # thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
-        # cv2.imshow('Real_world',BnW)
+        #get x,y coordinate of center 
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
 
-        
-
+        position = (int(M["m10"] - cX))/(width/2)
+        return position 
        
 
 class Controller():
@@ -137,15 +142,31 @@ def follow_the_line_greyscale():
 def follow_the_line_camera():
     sensor = Sensing(True)
     think = Interpretation()
-    #angle = Controller()
-    #time.sleep(3)
-    #previous_angle = 0
-    image = sensor.camera()
+    angle = Controller()
+    time.sleep(3)
+    previous_angle = 0
     process = think.photo_processing(image[0],image[1])
+
+    time_limit = 60
+    time_out_start =time.time()
+    sensor.px.forward(25)
+    while time.time() != time_out_start+time_limit:
+        image = sensor.camera()
+        position = think.photo_processing(image[0],image[1])
+        contol = angle.drive_along(position)
+        print(contol)
+        if position != -2:
+            sensor.px.set_dir_servo_angle(contol)
+            previous_angle = contol
+        else:
+            if previous_angle > 0:
+                sensor.px.set_dir_servo_angle(35)
+            elif previous_angle < 0:
+                sensor.px.set_dir_servo_angle(-35)
+            else:
+                sensor.px.set_dir_servo_angle(0)
+        time.sleep(.25)
 
 if __name__== "__main__":
     follow_the_line_camera()
     #follow_the_line_greyscale()
-   # Vilib.camera_start()
-    #time.sleep(0.5)
-    #Vilib.display()
