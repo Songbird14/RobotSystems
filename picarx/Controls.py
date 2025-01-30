@@ -165,6 +165,6 @@ def follow_the_line_camera():
         time.sleep(.25)
 
 if __name__== "__main__":
-    follow_the_line_greyscale()
+    follow_the_line_greyscale(False)
 
     #follow_the_line_camera()
