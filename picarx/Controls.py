@@ -77,7 +77,7 @@ class Interpretation():
         print('Started Processing')
         BnW = cv2.imread(f'{path}/{image_name}.jpg') #load image
         BnW  = BnW[375:450, :]
-        heigtht, width = BnW.shape
+        _, width, _ = BnW.shape
         BnW = cv2.cvtColor(BnW,cv2.COLOR_BGR2GRAY) #convert to black and white
 
         _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
