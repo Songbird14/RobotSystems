@@ -84,7 +84,7 @@ class Interpretation():
         contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
         edged_image = cv2.drawContours(BnW,contours,-1,(0,255,0),3)
 
-        cv2.imshow('Contours',image_name)
+        cv2.imshow('Contours',BnW)
         cv2.waitKey(100)
         return edged_image
 
