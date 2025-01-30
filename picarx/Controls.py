@@ -88,7 +88,7 @@ class Interpretation():
         cv2.imshow('Contours',BnW)
         cv2.waitKey(100)
 
-        tape = max(contours)
+        tape = max(contours, key=cv2.contourArea)
         print(tape)
         M = cv2.moment(tape)  #find the centroid of the tape 
 
