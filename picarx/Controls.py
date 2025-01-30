@@ -82,11 +82,11 @@ class Interpretation():
         _,thresh = cv2.threshold(BnW,10,255,cv2.THRESH_BINARY_INV )
         # edges = cv2.Canny(BnW,lower_limit, upper_limit)
         contours, _ = cv2.findContours(thresh,cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 
-        cv2.drawContours(BnW,contours,-1,(0,255,0),2)
+        edged_image = cv2.drawContours(BnW,contours,-1,(0,255,0),2)
 
-        cv2.imshow('Image with line detected',BnW)
+        cv2.imshow('Image with line detected',edged_image)
         cv2.waitKey(100)
-        return BnW
+        return edged_image
 
 
         # thresh = cv2.adaptiveThreshold(edges,255,1,1,11,2)
