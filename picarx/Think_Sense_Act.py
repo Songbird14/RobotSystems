@@ -2,29 +2,111 @@
 
 from picarx_improved import Picarx
 import Controls
+from time import sleep
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event
+import cv2
+
+px = Picarx()  #might need to be a bus 
 
 class bus():
     message = 0 #message attribute 
 
     @classmethod 
-    def write_message (cls): #write method
-        passed_message = bus.message
+    def write_message (self, message): #write method
+        self.message = message
+        #passed_message = bus.message
 
     @classmethod 
-    def read_message(cls): #read method
+    def read_message(self): #read method
         return bus.message  ## is that what this line is supposed to do???
     
-bus = bus() #create instance of class
-delay = 1 #delay time
 
-def producer(bus,delay):
-        pass
-        #while    what is supposed to end this while loop
+def producer(bus,delay): #needs delay, #Sensing
+        sensing = Controls.Sensing()
+        while True:
+            data = sensing.greyscale() 
+            #data = [1,2,3]
+            bus.write_message(data)
+            print(data)
+            time.sleep(delay)
+       
 
-def consumer_producer(bus,delay):
-        pass
-        #while    what is supposed to end this while loop 
+def consumer_producer(bus_read,bus_write,delay):  #needs delay 
+        interpret = Controls.Interpretation()
+        while True:
+            data = bus_read.read_message()
+            print(data)
 
+            position = interpret.processing(data)
+            print(position)
+
+            bus_write.write_message(position)
+            time.sleep(delay)
+        
 def consumer(bus,delay):
-        pass
-        #while    what is supposed to end this while loop 
+        control = Controls.Controller()
+        while True: 
+            px.forward(25)
+            position = bus.read_message()
+            angle = control.drive_along(position)
+
+            if position != -2:
+                px.set_dir_servo_angle(angle)
+                previous_angle = angle
+            else:
+                if previous_angle > 0:
+                    px.set_dir_servo_angle(35)
+                elif previous_angle < 0:
+                    px.set_dir_servo_angle(-35)
+                else:
+                    px.set_dir_servo_angle(0)
+            time.sleep(delay)
+
+
+#Define shutdown event
+shutdown_event = Event()
+# Exception handle function
+# def handle_exception(future):
+#     exception = future.exception()
+#     if exception:
+#         print()
+#     # Define robot task
+#         def robot_task(i):
+#             print(’Starting robot task’, i)
+#             while not shutdown_event.is_set():
+#                 # Run some robot task...
+#                 print(’Running robot task’, i)
+#                 sleep(1)
+#             # Print shut down message
+#             print(’Shutting down robot task’, i)
+#             # Test exception
+#             if i == 1:
+#                 raise Exception(’Robot task 1 raised an exception’)
+
+# sensor_data = bus() #create instance of class
+# get_position = bus()
+
+# producer(sensor_data,delay)
+# consumer_producer(sensor_data,get_position,delay)
+# consumer (get_position,delay)
+
+
+if __name__ == '__main__':
+    sensor_data = bus() #create instance of class
+    get_position = bus()
+
+    sensor_delay = 1
+    interp_delay = 2
+    drive_delay = 1
+
+    producer(sensor_data,delay)
+    consumer_producer(sensor_data,get_position,delay)
+    drive_fun = consumer (get_position,delay)
+
+    #add options to switch between versions
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        eSensor = executor.submit(producer, sensor_data,sensor_delay)
+        eInterpreter = executor.submit(consumer_producer,sensor_data, get_position, interp_delay) 
+        eDrive = executor.submit(consumer, get_position, drive_delay)

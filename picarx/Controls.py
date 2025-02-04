@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from picarx_improved import Picarx
+from picarx_improved import Picarx 
 import time
 import logging
 import cv2
@@ -13,11 +13,11 @@ class Sensing():
         if camera: 
            print('in')
            Vilib.camera_start()
-           time.sleep(0.5)
+           time.sleep(0.2)
            self.path = "picarx"
            self.image_name = 'real_world' 
            self.px.set_cam_tilt_angle(-35)
-           time.sleep(.5)
+           time.sleep(.2)
 
     def greyscale(self):
         return self.px.grayscale.read()
@@ -117,17 +117,16 @@ class Controller():
         return angle
 
 def follow_the_line_greyscale():
-    sensor = Sensing(False)
-    think = Interpretation()
-    angle = Controller()
-    time.sleep(3)
-    previous_angle = 0
+   sensor = Sensing(False)
+   think = Interpretation()
+   angle = Controller()
+   time.sleep(3)
+   previous_angle = 0
+   time_limit = 60
+   time_out_start =time.time()
+   sensor.px.forward(25)
 
-
-    time_limit = 60
-    time_out_start =time.time()
-    sensor.px.forward(25)
-    while time.time() != time_out_start+time_limit:
+   while time.time() != time_out_start+time_limit:
         data = sensor.greyscale()
         print(data)
         position = think.processing(data)
