@@ -3,9 +3,9 @@
 from picarx_improved import Picarx
 import Controls
 from time import sleep
-from concurrent.futures import ThreadPoolExecutor
+import concurrent.futures
 from threading import Event
-import cv2
+
 
 px = Picarx()  #might need to be a bus 
 
@@ -29,7 +29,7 @@ def producer(bus,delay): #needs delay, #Sensing
             #data = [1,2,3]
             bus.write_message(data)
             print(data)
-            time.sleep(delay)
+            sleep(delay)
        
 
 def consumer_producer(bus_read,bus_write,delay):  #needs delay 
@@ -42,7 +42,7 @@ def consumer_producer(bus_read,bus_write,delay):  #needs delay
             print(position)
 
             bus_write.write_message(position)
-            time.sleep(delay)
+            sleep(delay)
         
 def consumer(bus,delay):
         control = Controls.Controller()
@@ -61,7 +61,7 @@ def consumer(bus,delay):
                     px.set_dir_servo_angle(-35)
                 else:
                     px.set_dir_servo_angle(0)
-            time.sleep(delay)
+            sleep(delay)
 
 
 #Define shutdown event
@@ -100,9 +100,9 @@ if __name__ == '__main__':
     interp_delay = 2
     drive_delay = 1
 
-    producer(sensor_data,delay)
-    consumer_producer(sensor_data,get_position,delay)
-    drive_fun = consumer (get_position,delay)
+    producer(sensor_data,sensor_delay)
+    consumer_producer(sensor_data,get_position,interp_delay)
+    drive_fun = consumer (get_position,drive_delay)
 
     #add options to switch between versions
 
