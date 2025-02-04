@@ -22,8 +22,8 @@ class bus():
         return bus.message  ## is that what this line is supposed to do???
     
 
-def producer(bus,delay): #needs delay, #Sensing
-        sensing = Controls.Sensing()
+def producer(bus,delay,camera): #needs delay, #Sensing
+        sensing = Controls.Sensing(camera)
         while True:
             data = sensing.greyscale() 
             #data = [1,2,3]
@@ -100,13 +100,13 @@ if __name__ == '__main__':
     interp_delay = 2
     drive_delay = 1
 
-    producer(sensor_data,sensor_delay)
+    producer(sensor_data,sensor_delay,False)
     consumer_producer(sensor_data,get_position,interp_delay)
     drive_fun = consumer (get_position,drive_delay)
 
     #add options to switch between versions
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        eSensor = executor.submit(producer, sensor_data,sensor_delay)
+        eSensor = executor.submit(producer, sensor_data,sensor_delay,False)
         eInterpreter = executor.submit(consumer_producer,sensor_data, get_position, interp_delay) 
         eDrive = executor.submit(consumer, get_position, drive_delay)
