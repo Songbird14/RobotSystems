@@ -5,21 +5,27 @@ import Controls
 from time import sleep
 import concurrent.futures
 from threading import Event
+from readerwriterlock import rwlock 
 
 
 px = Picarx()  #might need to be a bus 
 
 class bus():
-    message = 0 #message attribute 
+    def __init__(self,message):
+        self.lock = rwlock.RWLockDataD()
+        self.message = message #message attribute 
 
     @classmethod 
     def write_message (self, message): #write method
-        self.message = message
+        with self.lock.gen_wlock():
+             self.message = message
         #passed_message = bus.message
 
     @classmethod 
     def read_message(self): #read method
-        return bus.message  ## is that what this line is supposed to do???
+        with self.lock.gen_rlock():
+             message = self.message
+        return bus.message  
     
 
 def producer(bus,delay,camera): #needs delay, #Sensing
@@ -46,8 +52,8 @@ def consumer_producer(bus_read,bus_write,delay):  #needs delay
         
 def consumer(bus,delay):
         control = Controls.Controller()
+        px.forward(25)
         while True: 
-            px.forward(25)
             position = bus.read_message()
             angle = control.drive_along(position)
 
@@ -98,11 +104,7 @@ if __name__ == '__main__':
 
     sensor_delay = 1
     interp_delay = 2
-    drive_delay = 1
-
-    producer(sensor_data,sensor_delay,False)
-    consumer_producer(sensor_data,get_position,interp_delay)
-    drive_fun = consumer (get_position,drive_delay)
+    drive_delay = 3
 
     #add options to switch between versions
 
@@ -110,3 +112,10 @@ if __name__ == '__main__':
         eSensor = executor.submit(producer, sensor_data,sensor_delay,False)
         eInterpreter = executor.submit(consumer_producer,sensor_data, get_position, interp_delay) 
         eDrive = executor.submit(consumer, get_position, drive_delay)
+
+    eSensor.result()
+    eInterpreter.result()
+    eDrive.result()
+
+    
+
