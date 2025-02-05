@@ -5,11 +5,11 @@ import Controls
 from time import sleep
 import concurrent.futures
 from threading import Event
-from readerwriterlock import rwlock 
+from readerwriterlock import rwlock
 
 
 px = Picarx()  #might need to be a bus 
-
+message = [0,0,0]
 class bus():
     def __init__(self,message):
         self.lock = rwlock.RWLockDataD()
