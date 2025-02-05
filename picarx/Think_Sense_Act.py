@@ -28,7 +28,7 @@ class bus():
         return bus.message  
     
 
-def producer(bus,delay,camera): #needs delay, #Sensing
+def producer(bus,delay,camera,cls): #needs delay, #Sensing
         sensing = Controls.Sensing(camera)
         data = [0,0,0]
         while True:
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     #add options to switch between versions
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        eSensor = executor.submit(producer, sensor_data,sensor_delay,False)
+        eSensor = executor.submit(producer, sensor_data,sensor_delay,False,px)
         eInterpreter = executor.submit(consumer_producer,sensor_data, get_position, interp_delay) 
         eDrive = executor.submit(consumer, get_position, drive_delay)
 
