@@ -9,7 +9,7 @@ from readerwriterlock import rwlock
 
 
 px = Picarx()  #might need to be a bus 
-message = [0,0,0]
+
 class bus():
     def __init__(self,message):
         self.lock = rwlock.RWLockDataD()
@@ -101,8 +101,10 @@ shutdown_event = Event()
 
 
 if __name__ == '__main__':
-    sensor_data = bus() #create instance of class
-    get_position = bus()
+    int_message1 = [0,0,0]
+    int_message2 = 0
+    sensor_data = bus(int_message1) #create instance of class
+    get_position = bus(int_message2)
 
     sensor_delay = 1
     interp_delay = 2
