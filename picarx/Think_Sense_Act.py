@@ -29,7 +29,7 @@ class bus():
     
 
 def producer(bus,delay,camera,cls): #needs delay, #Sensing
-        sensing = Controls.Sensing(camera)
+        sensing = Controls.Sensing(camera,cls)
         data = [0,0,0]
         while True:
             data = sensing.greyscale() 
