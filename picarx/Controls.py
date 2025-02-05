@@ -9,7 +9,7 @@ from PIL import Image
 
 class Sensing(): 
     def __init__(self, camera):
-        self.px = Picarx()
+        #self.px = Picarx()
         if camera: 
            print('in')
            Vilib.camera_start()

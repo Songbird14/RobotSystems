@@ -30,6 +30,7 @@ class bus():
 
 def producer(bus,delay,camera): #needs delay, #Sensing
         sensing = Controls.Sensing(camera)
+        data = [0,0,0]
         while True:
             data = sensing.greyscale() 
             #data = [1,2,3]
@@ -40,6 +41,7 @@ def producer(bus,delay,camera): #needs delay, #Sensing
 
 def consumer_producer(bus_read,bus_write,delay):  #needs delay 
         interpret = Controls.Interpretation()
+        position = 0
         while True:
             data = bus_read.read_message()
             print(data)
@@ -117,5 +119,5 @@ if __name__ == '__main__':
     eInterpreter.result()
     eDrive.result()
 
-    
+
 
