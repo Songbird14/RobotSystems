@@ -12,7 +12,7 @@ px = Picarx()  #might need to be a bus
 
 class bus():
     def __init__(self,message):
-        self.lock = rwlock.RWLockDataD()
+        self.lock = rwlock.RWLockWriteD()
         self.message = message #message attribute 
 
     @classmethod 
