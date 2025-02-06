@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from picarx_improved import Picarx
+from picarx_improved import Picarx 
 import Controls
 from time import sleep
 import concurrent.futures
@@ -8,7 +8,6 @@ from threading import Event
 from readerwriterlock import rwlock
 
 
-px = Picarx()  #might need to be a bus 
 
 class bus():
     def __init__(self,message):
@@ -111,6 +110,8 @@ if __name__ == '__main__':
     drive_delay = 3
 
     #add options to switch between versions
+
+    px = Picarx()  #might need to be a bus  
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         eSensor = executor.submit(producer, sensor_data,sensor_delay,False,px)
