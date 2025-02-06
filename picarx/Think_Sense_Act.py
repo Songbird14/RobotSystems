@@ -14,7 +14,7 @@ class bus():
         self.lock = rwlock.RWLockWriteD()
         self.message = message #message attribute 
 
-    @classmethod 
+    #@classmethod 
     def write_message (self, message): #write method
         with self.lock.gen_wlock():
              self.message = message
