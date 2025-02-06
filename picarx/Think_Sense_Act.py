@@ -34,13 +34,14 @@ def producer(bus,delay,camera,cls): #needs delay, #Sensing
             data = sensing.greyscale() 
             #data = [1,2,3]
             bus.write_message(data)
-            print(data)
+            #print(data)
             sleep(delay)
        
 
 def consumer_producer(bus_read,bus_write,delay):  #needs delay 
         interpret = Controls.Interpretation()
         position = 0
+        print("STARTED")
         while True:
             data = bus_read.read_message()
             print(data)
