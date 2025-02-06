@@ -24,7 +24,7 @@ class bus():
     def read_message(self): #read method
         with self.lock.gen_rlock():
              message = self.message
-        return bus.message  
+        return message  
     
 
 def producer(bus,delay,camera,cls): #needs delay, #Sensing
