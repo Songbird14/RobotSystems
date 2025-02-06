@@ -20,7 +20,7 @@ class bus():
              self.message = message
         #passed_message = bus.message
 
-    @classmethod 
+    #@classmethod 
     def read_message(self): #read method
         with self.lock.gen_rlock():
              message = self.message
@@ -105,9 +105,9 @@ if __name__ == '__main__':
     sensor_data = bus(int_message1) #create instance of class
     get_position = bus(int_message2)
 
-    sensor_delay = 1
-    interp_delay = 2
-    drive_delay = 3
+    sensor_delay = .1
+    interp_delay = .1
+    drive_delay = .1
 
     #add options to switch between versions
 
