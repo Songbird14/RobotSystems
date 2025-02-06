@@ -43,14 +43,18 @@ def consumer_producer(bus_read,bus_write,delay):  #needs delay
         position = 0
         print("STARTED")
         while True:
-            data = bus_read.read_message()
-            print(data)
+            try:
+                data = bus_read.read_message()
+                print(data)
 
-            position = interpret.processing(data)
-            print(position)
+                position = interpret.processing(data)
+                print(position)
 
-            bus_write.write_message(position)
-            sleep(delay)
+                bus_write.write_message(position)
+                sleep(delay)
+            except:
+                 print("FAILED")
+                 sleep(delay)
         
 def consumer(bus,delay):
         control = Controls.Controller()
