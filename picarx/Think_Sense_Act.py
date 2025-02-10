@@ -9,6 +9,7 @@ from readerwriterlock import rwlock
 
 
 
+
 class bus():
     def __init__(self,message):
         self.lock = rwlock.RWLockWriteD()
@@ -78,30 +79,7 @@ def consumer(bus,delay):
 
 #Define shutdown event
 shutdown_event = Event()
-# Exception handle function
-# def handle_exception(future):
-#     exception = future.exception()
-#     if exception:
-#         print()
-#     # Define robot task
-#         def robot_task(i):
-#             print(’Starting robot task’, i)
-#             while not shutdown_event.is_set():
-#                 # Run some robot task...
-#                 print(’Running robot task’, i)
-#                 sleep(1)
-#             # Print shut down message
-#             print(’Shutting down robot task’, i)
-#             # Test exception
-#             if i == 1:
-#                 raise Exception(’Robot task 1 raised an exception’)
 
-# sensor_data = bus() #create instance of class
-# get_position = bus()
-
-# producer(sensor_data,delay)
-# consumer_producer(sensor_data,get_position,delay)
-# consumer (get_position,delay)
 
 
 if __name__ == '__main__':
