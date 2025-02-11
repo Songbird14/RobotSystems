@@ -3,7 +3,7 @@
 from picarx_improved import Picarx 
 import Controls
 import logging
-from RossROS import rossros as rr
+import rossros as rr
 px = Picarx()  #might need to be a bus  
 
 
