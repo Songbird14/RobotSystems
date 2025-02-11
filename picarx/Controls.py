@@ -21,7 +21,9 @@ class Sensing():
            time.sleep(.2)
 
     def greyscale(self):
-        return self.px.grayscale.read()
+        data = self.px.grayscale.read()
+        print (data)
+        return data
     
     def camera(self):
         Vilib.take_photo(self.image_name, self.path)
