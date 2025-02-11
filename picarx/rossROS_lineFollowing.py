@@ -24,8 +24,8 @@ def drive(position):
     angle = control.drive_along(position)
 
     if position != -2:
-        px.set_dir_servo_angle(angle)
         previous_angle = angle
+        px.set_dir_servo_angle(angle)
     else:
         if previous_angle > 0:
             px.set_dir_servo_angle(35)
@@ -43,9 +43,11 @@ def process_ultrasonics(ul_data):
     else:
         should_i_drive = False
     
+    return should_i_drive
+    
 def drive_or_not(should_i_drive):
     if should_i_drive == True:
-        px.forward(25)
+         px.forward(25)
     elif should_i_drive == False:
         px.forward(0)
     else:
@@ -58,6 +60,8 @@ int_message2 = 0
 bData = rr.Bus(int_message1,'Greyscale data bus')
 bPosition = rr.Bus(int_message2,'Angle to drive bus')
 bTerminate = rr.Bus(0, "Termination Bus")
+bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
+bUltraProcess = rr.Bus(int_message2,"Should I drive")
 
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
@@ -65,12 +69,17 @@ readData = rr.Producer(data(False,px),bData,0.1,bTerminate)
 calculate_anlge = rr.ConsumerProducer(process,bData,bPosition,.1,bTerminate)
 drivecar = rr.Consumer(drive,bPosition,.1,bTerminate)
 
+readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
+calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
+stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
+
+
 
 ######### Part 4 -- Create RossROS Printer and Timer objects 
 terminationTimer = rr.Timer(bTerminate,5,0.1,bTerminate,"Termination Timer")
 
 ######### Part 5
-producer_consumer_list = [readData,calculate_anlge,drivecar]
+producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
 
 rr.runConcurrently(producer_consumer_list)
 
