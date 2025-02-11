@@ -39,6 +39,7 @@ class Interpretation():
 
 
    def processing(self, data):
+    print('IN')
     left = data[0]
     middle = data[1]
     right = data[2]
