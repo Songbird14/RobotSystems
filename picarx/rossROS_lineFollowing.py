@@ -7,55 +7,58 @@ import rossros as rr
 px = Picarx()  #might need to be a bus  
 
 
-############# Part 1 
-def data(camera,cls): #needs delay, #Sensing
-    sensing = Controls.Sensing(camera,cls)
-    data = sensing.greyscale() 
-    print(data)
-    return data 
+# ############# Part 1 
+# def data(camera,cls): #needs delay, #Sensing
+#     sensing = Controls.Sensing()
+#     data = sensing.greyscale() 
+#     print(data)
+#     return data 
 
-def process(data):  #needs delay 
-    interpret = Controls.Interpretation()
-    position = interpret.processing(data)
-    print (position)
-    return position
+# def process(data):  #needs delay 
+#     interpret = Controls.Interpretation()
+#     position = interpret.processing(data)
+#     print (position)
+#     return position
         
-def drive(position):
-    control = Controls.Controller()
-    px.forward(25)
-    angle = control.drive_along(position)
-    print(angle)
-    if position != -2:
-        previous_angle = angle
-        px.set_dir_servo_angle(angle)
-    else:
-        if previous_angle > 0:
-            px.set_dir_servo_angle(35)
-        elif previous_angle < 0:
-            px.set_dir_servo_angle(-35)
-        else:
-            px.set_dir_servo_angle(0)
+# def drive(position):
+#     control = Controls.Controller()
+#     px.forward(25)
+#     angle = control.drive_along(position)
+#     print(angle)
+#     if position != -2:
+#         previous_angle = angle
+#         px.set_dir_servo_angle(angle)
+#     else:
+#         if previous_angle > 0:
+#             px.set_dir_servo_angle(35)
+#         elif previous_angle < 0:
+#             px.set_dir_servo_angle(-35)
+#         else:
+#             px.set_dir_servo_angle(0)
 
-def get_ultrasonic_data ():
-    return px.ultrasonic.read()
+# def get_ultrasonic_data ():
+#     return px.ultrasonic.read()
 
-def process_ultrasonics(ul_data):
-    threshold =2
-    if ul_data > threshold: 
-        should_i_drive = True
-    else:
-        should_i_drive = False
+# def process_ultrasonics(ul_data):
+#     threshold =2
+#     if ul_data > threshold: 
+#         should_i_drive = True
+#     else:
+#         should_i_drive = False
     
-    return should_i_drive
+#     return should_i_drive
     
-def drive_or_not(should_i_drive):
-    if should_i_drive == True:
-         px.forward(25)
-    elif should_i_drive == False:
-        px.forward(0)
-    else:
-        print('CONFUSED')
+# def drive_or_not(should_i_drive):
+#     if should_i_drive == True:
+#          px.forward(25)
+#     elif should_i_drive == False:
+#         px.forward(0)
+#     else:
+#         print('CONFUSED')
 
+sense = Controls.Sensing ()
+intperptret = Controls.Interpretation ()
+drive = Controls.Controller()
 
 ############ Part 2
 int_message1 = [0,0,0]
@@ -68,9 +71,9 @@ bTerminate = rr.Bus(0, "Termination Bus")
 
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
-readData = rr.Producer(data(False,px),bData,0.1,bTerminate)
-calculate_anlge = rr.ConsumerProducer(process(),bData,bPosition,.1,bTerminate)
-drivecar = rr.Consumer(drive(),bPosition,.1,bTerminate)
+readData = rr.Producer(sense.greyscale,bData,0.1,bTerminate)
+calculate_anlge = rr.ConsumerProducer(intperptret.processing,bData,bPosition,.1,bTerminate)
+drivecar = rr.Consumer(drive.drive_along,bPosition,.1,bTerminate)
 
 #readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
 # calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from picarx_improved import Picarx 
+from picarx_improved import Picarx as px
 import time
 import logging
 import cv2
@@ -8,7 +8,7 @@ from vilib import Vilib
 from PIL import Image 
 
 class Sensing(): 
-    def __init__(self, camera,cls):
+    def __init__(self, camera = False,cls = px):
         self.px = cls
         #self.px = Picarx()
         if camera: 
@@ -113,9 +113,20 @@ class Controller():
     def __init__(self,P=30): 
         self.position = input
         self.P = P
-    def drive_along(self,input):
-        angle = input*self.P
-        return angle
+    def drive_along(self,position):
+        control = position*self.P
+        if position != -2:
+            px.set_dir_servo_angle(control)
+            previous_angle = control
+        else:
+            if previous_angle > 0:
+                px.set_dir_servo_angle(35)
+            elif previous_angle < 0:
+                px.set_dir_servo_angle(-35)
+            else:
+                px.set_dir_servo_angle(0)
+        #return angle
+        
 
 def follow_the_line_greyscale():
    sensor = Sensing(False)
