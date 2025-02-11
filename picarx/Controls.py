@@ -33,7 +33,7 @@ class Sensing():
         
 
 class Interpretation(): 
-   def __init__(self, tolerance=.5, contrast = 1000): 
+   def __init__(self, tolerance=.5, contrast = 300): 
        self.tolerance = tolerance
        self.contrast = contrast  #1000 for desk #300 for guitar road 
 
@@ -43,7 +43,7 @@ class Interpretation():
     left = data[0]
     middle = data[1]
     right = data[2]
-    print(right)
+
 
     data_norm=data
     normal = max(data)-min(data)
@@ -118,6 +118,7 @@ class Controller(px):
         self.position = input
         self.P = P
     def drive_along(self,position):
+        px.forward(25)
         control = position*self.P
         if position != -2:
             px.set_dir_servo_angle(control)
