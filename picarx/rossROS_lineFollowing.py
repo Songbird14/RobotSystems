@@ -56,9 +56,9 @@ px = Picarx()  #might need to be a bus
 #     else:
 #         print('CONFUSED')
 
-sense = Controls.Sensing ()
+sense = Controls.Sensing (px,False)
 intperptret = Controls.Interpretation ()
-drive = Controls.Controller()
+drive = Controls.Controller(px)
 
 ############ Part 2
 int_message1 = [0,0,0]

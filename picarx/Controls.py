@@ -8,8 +8,8 @@ from vilib import Vilib
 from PIL import Image 
 
 class Sensing(): 
-    def __init__(self, camera = False,cls = px):
-        self.px = cls
+    def __init__(self, px, camera = False):
+        self.px = px
         #self.px = Picarx()
         if camera: 
            print('in')
@@ -109,7 +109,7 @@ class Interpretation():
         return position 
        
 
-class Controller():
+class Controller(px):
     def __init__(self,P=30): 
         self.position = input
         self.P = P
