@@ -11,18 +11,20 @@ px = Picarx()  #might need to be a bus
 def data(camera,cls): #needs delay, #Sensing
     sensing = Controls.Sensing(camera,cls)
     data = sensing.greyscale() 
+    print(data)
     return data 
 
 def process(data):  #needs delay 
     interpret = Controls.Interpretation()
     position = interpret.processing(data)
+    print (position)
     return position
         
 def drive(position):
     control = Controls.Controller()
     px.forward(25)
     angle = control.drive_along(position)
-
+    print(angle)
     if position != -2:
         previous_angle = angle
         px.set_dir_servo_angle(angle)
@@ -67,8 +69,8 @@ bTerminate = rr.Bus(0, "Termination Bus")
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
 readData = rr.Producer(data(False,px),bData,0.1,bTerminate)
-calculate_anlge = rr.ConsumerProducer(process,bData,bPosition,.1,bTerminate)
-drivecar = rr.Consumer(drive,bPosition,.1,bTerminate)
+calculate_anlge = rr.ConsumerProducer(process(),bData,bPosition,.1,bTerminate)
+drivecar = rr.Consumer(drive(),bPosition,.1,bTerminate)
 
 #readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
 # calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
