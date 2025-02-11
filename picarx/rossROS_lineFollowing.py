@@ -38,7 +38,8 @@ def get_ultrasonic_data ():
     return px.ultrasonic.read()
 
 def process_ultrasonics(ul_data):
-    if ul_data > 0: 
+    threshold =2
+    if ul_data > threshold: 
         should_i_drive = True
     else:
         should_i_drive = False
@@ -60,8 +61,8 @@ int_message2 = 0
 bData = rr.Bus(int_message1,'Greyscale data bus')
 bPosition = rr.Bus(int_message2,'Angle to drive bus')
 bTerminate = rr.Bus(0, "Termination Bus")
-bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
-bUltraProcess = rr.Bus(int_message2,"Should I drive")
+# bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
+# bUltraProcess = rr.Bus(int_message2,"Should I drive")
 
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
@@ -69,9 +70,9 @@ readData = rr.Producer(data(False,px),bData,0.1,bTerminate)
 calculate_anlge = rr.ConsumerProducer(process,bData,bPosition,.1,bTerminate)
 drivecar = rr.Consumer(drive,bPosition,.1,bTerminate)
 
-readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
-calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
-stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
+#readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
+# calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
+# stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
 
 
 
@@ -79,8 +80,8 @@ stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
 terminationTimer = rr.Timer(bTerminate,5,0.1,bTerminate,"Termination Timer")
 
 ######### Part 5
-producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
-
+#producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
+producer_consumer_list = [readData,calculate_anlge,drivecar]
 rr.runConcurrently(producer_consumer_list)
 
 
