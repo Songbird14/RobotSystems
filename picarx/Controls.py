@@ -39,10 +39,12 @@ class Interpretation():
 
 
    def processing(self, data):
-    print('IN')
     left = data[0]
+    print(left)
     middle = data[1]
+    print(middle)
     right = data[2]
+    print(right)
 
     data_norm=data
     normal = max(data)-min(data)
