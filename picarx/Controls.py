@@ -44,7 +44,7 @@ class Interpretation():
     middle = data[1]
     right = data[2]
 
-    print(f'left = {left}')
+    print(data)
     data_norm=data
     normal = max(data)-min(data)
     left_norm=(data[0]-min(data))/normal
