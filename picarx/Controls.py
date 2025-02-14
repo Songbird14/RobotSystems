@@ -39,7 +39,7 @@ class Interpretation():
 
 
    def processing(self, data):
-    print('IN') 
+    #print('IN') 
     left = data[0]
     middle = data[1]
     right = data[2]
@@ -73,6 +73,7 @@ class Interpretation():
         print('tape on the right, turn left')
         position = 1
 
+    print(position)
     return position
     
    def photo_processing(self,image,path): 
