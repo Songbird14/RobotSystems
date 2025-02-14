@@ -39,12 +39,12 @@ class Interpretation():
 
 
    def processing(self, data):
-    #print('IN') 
+    print('IN') 
     left = data[0]
     middle = data[1]
     right = data[2]
 
-
+    print(f'left = {left}')
     data_norm=data
     normal = max(data)-min(data)
     left_norm=(data[0]-min(data))/normal
@@ -73,7 +73,7 @@ class Interpretation():
         print('tape on the right, turn left')
         position = 1
 
-    print(position)
+    
     return position
     
    def photo_processing(self,image,path): 
