@@ -46,6 +46,7 @@ class Interpretation():
 
     print(data)
     data_norm=data
+    
     normal = max(data)-min(data)
     left_norm=(data[0]-min(data))/normal
     middle_norm=(data[1]-min(data))/normal
@@ -118,9 +119,9 @@ class Controller(px):
     def __init__(self,P=30): 
         self.position = input
         self.P = P
+        px.forward(25)
     def drive_along(self,position):
         print('STARTED DRIVE FUNC')
-        px.forward(25)
         control = position*self.P
         if position != -2:
             px.set_dir_servo_angle(control)

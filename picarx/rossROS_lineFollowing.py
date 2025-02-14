@@ -61,7 +61,7 @@ intperptret = Controls.Interpretation ()
 drive = Controls.Controller(px)
 
 ############ Part 2
-int_message1 = [0,0,0]
+int_message1 = [1,1,1]
 int_message2 = 0
 bData = rr.Bus(int_message1,'Greyscale data bus')
 bPosition = rr.Bus(int_message2,'Angle to drive bus')
