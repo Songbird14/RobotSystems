@@ -115,24 +115,26 @@ class Interpretation():
         return position 
        
 
-class Controller(px):
-    def __init__(self,P=30): 
+class Controller():
+    def __init__(self,px,P=30): 
         self.position = input
         self.P = P
-        px.forward(25)
+        self.px = px
+       # self.px.forward(25)
     def drive_along(self,position):
         print('STARTED DRIVE FUNC')
+        self.px.forward(25)
         control = position*self.P
         if position != -2:
-            px.set_dir_servo_angle(control)
+            self.px.set_dir_servo_angle(control)
             previous_angle = control
         else:
             if previous_angle > 0:
-                px.set_dir_servo_angle(35)
+                self.px.set_dir_servo_angle(35)
             elif previous_angle < 0:
-                px.set_dir_servo_angle(-35)
+                self.px.set_dir_servo_angle(-35)
             else:
-                px.set_dir_servo_angle(0)
+                self.px.set_dir_servo_angle(0)
         #return angle
         
 
