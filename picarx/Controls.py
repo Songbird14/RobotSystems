@@ -22,7 +22,7 @@ class Sensing():
 
     def greyscale(self):
         data = self.px.grayscale.read()
-        print (data)
+        #print (data)
         return data
     
     def camera(self):
