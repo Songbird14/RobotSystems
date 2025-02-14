@@ -119,6 +119,7 @@ class Controller(px):
         self.position = input
         self.P = P
     def drive_along(self,position):
+        print('STARTED DRIVE FUNC')
         px.forward(25)
         control = position*self.P
         if position != -2:
