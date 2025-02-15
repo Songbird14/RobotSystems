@@ -83,6 +83,8 @@ class Interpretation():
         elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
             print('tape on the right, turn left')
             position = 1
+        else:
+            print('In - but issue with the assigning position')
     except: 
         print('Issue with the assigning position')
     
