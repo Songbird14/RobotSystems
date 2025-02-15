@@ -88,7 +88,7 @@ terminationTimer = rr.Timer(bTerminate,5,0.1,bTerminate,"Termination Timer")
 
 ######### Part 5
 #producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
-producer_consumer_list = [readData,calculate_anlge,drivecar]
+producer_consumer_list = [readData,calculate_anlge,drivecar,readUData]
 rr.runConcurrently(producer_consumer_list)
 
 

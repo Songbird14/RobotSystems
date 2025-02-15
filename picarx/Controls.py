@@ -39,18 +39,18 @@ class Interpretation():
 
 
    def processing(self, data):
-    print('IN') 
+    #print('IN') 
     try:
         left = data[0]
         middle = data[1]
         right = data[2]
 
     except: 
-        print('Issue at assigning')
+        #print('Issue at assigning')
         position = 1
 
     try:
-        print(f'data = {data}')
+        #print(f'data = {data}')
         data_norm=data
     
         normal = max(data)-min(data)
@@ -62,7 +62,7 @@ class Interpretation():
         print(data_norm)
         print(f'normalized data = {data_norm}')
     except:
-        print('issue with normalizing')
+        #print('issue with normalizing')
         position = 1
     
     try:
@@ -89,7 +89,7 @@ class Interpretation():
             print('In - but issue with the assigning position')
             position = 1
     except: 
-        print('Issue with the assigning position')
+        #print('Issue with the assigning position')
         position = 1
     
     return position
