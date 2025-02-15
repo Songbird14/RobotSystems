@@ -44,7 +44,7 @@ class Interpretation():
     middle = data[1]
     right = data[2]
 
-    print(data)
+    print(f'data = {data}')
     data_norm=data
     
     normal = max(data)-min(data)
@@ -54,6 +54,7 @@ class Interpretation():
     
     data_norm = [left_norm,middle_norm,right_norm]
     print(data_norm)
+    print(f'normalized data = {data_norm}')
 
     if left > self.contrast and middle > self.contrast and right > self.contrast:
         print('LOST!')
