@@ -47,6 +47,7 @@ class Interpretation():
 
     except: 
         print('Issue at assigning')
+        position = 1
 
     try:
         print(f'data = {data}')
@@ -62,6 +63,7 @@ class Interpretation():
         print(f'normalized data = {data_norm}')
     except:
         print('issue with normalizing')
+        position = 1
     
     try:
 
@@ -85,8 +87,10 @@ class Interpretation():
             position = 1
         else:
             print('In - but issue with the assigning position')
+            position = 1
     except: 
         print('Issue with the assigning position')
+        position = 1
     
     return position
     
