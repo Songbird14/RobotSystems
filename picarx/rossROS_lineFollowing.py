@@ -74,8 +74,8 @@ bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
 readData = rr.Producer(sense.greyscale,bData,0.1,bTerminate)
-calculate_anlge = rr.ConsumerProducer(intperptret.processing,bData,bPosition,.1,bTerminate)
-drivecar = rr.Consumer(drive.drive_along,bPosition,.1,bTerminate)
+calculate_anlge = rr.ConsumerProducer(intperptret.processing,bData,bPosition,.3,bTerminate)
+drivecar = rr.Consumer(drive.drive_along,bPosition,.3,bTerminate)
 
 readUData = rr.Producer(get_ultrasonic_data,bUltraData,0.1,bTerminate)
 # calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
