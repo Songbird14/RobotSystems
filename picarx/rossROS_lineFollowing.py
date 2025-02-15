@@ -4,38 +4,16 @@ from picarx_improved import Picarx
 import Controls
 import logging
 import rossros as rr
-px = Picarx()  #might need to be a bus  
+px = Picarx()  
 
 
 # ############# Part 1 
-# def data(camera,cls): #needs delay, #Sensing
-#     sensing = Controls.Sensing()
-#     data = sensing.greyscale() 
-#     print(data)
-#     return data 
+#initate the line following classes
+sense = Controls.Sensing (px,False)
+intperptret = Controls.Interpretation ()
+drive = Controls.Controller(px)
 
-# def process(data):  #needs delay 
-#     interpret = Controls.Interpretation()
-#     position = interpret.processing(data)
-#     print (position)
-#     return position
-        
-# def drive(position):
-#     control = Controls.Controller()
-#     px.forward(25)
-#     angle = control.drive_along(position)
-#     print(angle)
-#     if position != -2:
-#         previous_angle = angle
-#         px.set_dir_servo_angle(angle)
-#     else:
-#         if previous_angle > 0:
-#             px.set_dir_servo_angle(35)
-#         elif previous_angle < 0:
-#             px.set_dir_servo_angle(-35)
-#         else:
-#             px.set_dir_servo_angle(0)
-
+#create functions for the ultrasonic sensor 
 def get_ultrasonic_data ():
    distance = px.get_distance()
    print(f'ultrasonic={distance}')
@@ -47,7 +25,6 @@ def process_ultrasonics(ul_data):
         should_i_drive = 1
     else:
         should_i_drive = 2
-    
     return should_i_drive
     
 def drive_or_not(should_i_drive):
@@ -58,18 +35,14 @@ def drive_or_not(should_i_drive):
     else:
         print('CONFUSED')
 
-sense = Controls.Sensing (px,False)
-intperptret = Controls.Interpretation ()
-drive = Controls.Controller(px)
-
-############ Part 2
+############ Part 2 - creeat buses and inital messages 
 int_message1 = [1,2,3]
 int_message2 = 0
 bData = rr.Bus(int_message1,'Greyscale data bus')
 bPosition = rr.Bus(int_message2,'Angle to drive bus')
 bTerminate = rr.Bus(0, "Termination Bus")
-bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
-bUltraProcess = rr.Bus(int_message2,"Should I drive")
+bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data bus")
+bUltraProcess = rr.Bus(int_message2,"Should I drive bus")
 
 
 ########### Part 3 -- create consumer/producer/ConsumerProducer
@@ -87,7 +60,6 @@ stopcar = rr.Consumer(drive_or_not,bUltraProcess,.1,bTerminate)
 terminationTimer = rr.Timer(bTerminate,5,0.1,bTerminate,"Termination Timer")
 
 ######### Part 5
-#producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
 producer_consumer_list = [readData,calculate_anlge,drivecar,readUData,calculate_shouldDrive,stopcar]
 rr.runConcurrently(producer_consumer_list)
 
