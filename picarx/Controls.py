@@ -33,48 +33,58 @@ class Sensing():
         
 
 class Interpretation(): 
-   def __init__(self, tolerance=.5, contrast = 300): 
+   def __init__(self, tolerance=.5, contrast = 1000): 
        self.tolerance = tolerance
        self.contrast = contrast  #1000 for desk #300 for guitar road 
 
 
    def processing(self, data):
     print('IN') 
-    left = data[0]
-    middle = data[1]
-    right = data[2]
+    try:
+        left = data[0]
+        middle = data[1]
+        right = data[2]
 
-    print(f'data = {data}')
-    data_norm=data
+    except: 
+        print('Issue at assigning')
+
+    try:
+        print(f'data = {data}')
+        data_norm=data
     
-    normal = max(data)-min(data)
-    left_norm=(data[0]-min(data))/normal
-    middle_norm=(data[1]-min(data))/normal
-    right_norm=(data[2]-min(data))/normal
+        normal = max(data)-min(data)
+        left_norm=(data[0]-min(data))/normal
+        middle_norm=(data[1]-min(data))/normal
+        right_norm=(data[2]-min(data))/normal
     
-    data_norm = [left_norm,middle_norm,right_norm]
-    print(data_norm)
-    print(f'normalized data = {data_norm}')
+        data_norm = [left_norm,middle_norm,right_norm]
+        print(data_norm)
+        print(f'normalized data = {data_norm}')
+    except:
+        print('issue with normalizing')
+    
+    try:
 
-    if left > self.contrast and middle > self.contrast and right > self.contrast:
-        print('LOST!')
-        position = -2
-    elif left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
-        print ('tape on left, turn left') #L,H,H
-        position = -1
-    elif left_norm < self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
-        print ('tape on between left and center, turn slightly right') #L,L,H
-        position = -.5
-    elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
-            print('tape in the cetner, stay straight') #L,H,L
-            position = 0    
-    elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
-        print ('tape on between center and right, turn slightly left') #L,L,H
-        position = .5 
-    elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
-        print('tape on the right, turn left')
-        position = 1
-
+        if left > self.contrast and middle > self.contrast and right > self.contrast:
+            print('LOST!')
+            position = -2
+        elif left_norm < self.tolerance and middle_norm > self.tolerance and right_norm > self.tolerance:
+            print ('tape on left, turn left') #L,H,H
+            position = -1
+        elif left_norm < self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
+            print ('tape on between left and center, turn slightly right') #L,L,H
+            position = -.5
+        elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm > self.tolerance:
+                print('tape in the cetner, stay straight') #L,H,L
+                position = 0    
+        elif left_norm > self.tolerance and middle_norm < self.tolerance and right_norm < self.tolerance:
+            print ('tape on between center and right, turn slightly left') #L,L,H
+            position = .5 
+        elif left_norm > self.tolerance and middle_norm > self.tolerance and right_norm < self.tolerance:
+            print('tape on the right, turn left')
+            position = 1
+    except: 
+        print('Issue with the assigning position')
     
     return position
     
