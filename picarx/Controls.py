@@ -138,22 +138,23 @@ class Controller():
         self.P = P
         self.px = px
         self.px.forward(25)
+        self.previous_angle = 0
     def drive_along(self,position):
         print('STARTED DRIVE FUNC')
         #self.px.forward(25)
         control = position*self.P
         if position != -2:
             self.px.set_dir_servo_angle(control)
-            previous_angle = control
+            self.previous_angle = control
             print(f'angle = {control}')
         else:
-            if previous_angle > 0:
+            if self.previous_angle > 0:
                 self.px.set_dir_servo_angle(35)
-            elif previous_angle < 0:
+            elif self.previous_angle < 0:
                 self.px.set_dir_servo_angle(-35)
             else:
                 self.px.set_dir_servo_angle(0)
-            print(f'angle = {previous_angle}')
+            print(f'angle = {self.previous_angle}')
         #return angle
         
 
