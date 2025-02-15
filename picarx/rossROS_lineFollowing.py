@@ -44,16 +44,16 @@ def get_ultrasonic_data ():
 def process_ultrasonics(ul_data):
     threshold = 5
     if ul_data > threshold: 
-        should_i_drive = True
+        should_i_drive = 1
     else:
-        should_i_drive = False
+        should_i_drive = 2
     
     return should_i_drive
     
 def drive_or_not(should_i_drive):
-    if should_i_drive == True:
+    if should_i_drive == 1:
          px.forward(25)
-    elif should_i_drive == False:
+    elif should_i_drive == 2:
         px.forward(0)
     else:
         print('CONFUSED')
@@ -79,7 +79,7 @@ drivecar = rr.Consumer(drive.drive_along,bPosition,.1,bTerminate)
 
 readUData = rr.Producer(get_ultrasonic_data,bUltraData,0.1,bTerminate)
 calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
-stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
+stopcar = rr.Consumer(drive_or_not,bUltraProcess,.1,bTerminate)
 
 
 
