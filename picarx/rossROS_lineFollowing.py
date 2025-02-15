@@ -36,8 +36,10 @@ px = Picarx()  #might need to be a bus
 #         else:
 #             px.set_dir_servo_angle(0)
 
-# def get_ultrasonic_data ():
-#     return px.ultrasonic.read()
+def get_ultrasonic_data ():
+   distance = px.get_distance()
+   print(f'ultrasonic={distance}')
+   return distance
 
 # def process_ultrasonics(ul_data):
 #     threshold =2
@@ -66,7 +68,7 @@ int_message2 = 0
 bData = rr.Bus(int_message1,'Greyscale data bus')
 bPosition = rr.Bus(int_message2,'Angle to drive bus')
 bTerminate = rr.Bus(0, "Termination Bus")
-# bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
+bUltraData = rr.Bus(int_message2,"Ultrasonic Sensor data")
 # bUltraProcess = rr.Bus(int_message2,"Should I drive")
 
 
@@ -75,7 +77,7 @@ readData = rr.Producer(sense.greyscale,bData,0.1,bTerminate)
 calculate_anlge = rr.ConsumerProducer(intperptret.processing,bData,bPosition,.1,bTerminate)
 drivecar = rr.Consumer(drive.drive_along,bPosition,.1,bTerminate)
 
-#readUData = rr.Producer(get_ultrasonic_data(),bUltraData,0.1,bTerminate)
+readUData = rr.Producer(get_ultrasonic_data,bUltraData,0.1,bTerminate)
 # calculate_shouldDrive = rr.ConsumerProducer(process_ultrasonics,bUltraData,bUltraProcess,.1,bTerminate)
 # stopcar = rr.Consumer(drive_or_not,bPosition,.1,bTerminate)
 
