@@ -20,11 +20,12 @@ def get_ultrasonic_data ():
    return distance
 
 def process_ultrasonics(ul_data):
-    threshold = 2
-    if ul_data > threshold: 
-        should_i_drive = 1
-    else:
+    upper_thresh = 10
+    lower_thresh = 0
+    if lower_thresh < ul_data > upper_thresh: 
         should_i_drive = 2
+    else:
+        should_i_drive = 1
     return should_i_drive
     
 def drive_or_not(should_i_drive):
