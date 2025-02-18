@@ -22,7 +22,7 @@ def get_ultrasonic_data ():
 def process_ultrasonics(ul_data):
     upper_thresh = 10
     lower_thresh = 0
-    if lower_thresh < ul_data > upper_thresh: 
+    if lower_thresh < ul_data < upper_thresh: 
         should_i_drive = 2
     else:
         should_i_drive = 1
